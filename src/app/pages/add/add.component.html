@@ -1,0 +1,14 @@
+<div class="add_section">
+  <ul>
+    <li *ngFor="let c of cities | async">{{ c }}</li>
+  </ul>
+  <div class="add_form_container">
+      <form class="add_form">
+          <mat-form-field class="add_input">
+            <input matInput placeholder="City" [(ngModel)]="city" name="city">
+          </mat-form-field>
+          <button mat-stroked-button color="primary" (click)="addCity()" class="add_btn">Add City</button>
+          <a mat-button routerLink="/" class="back_link">Back To The Feature</a>
+      </form>
+  </div>
+</div>
