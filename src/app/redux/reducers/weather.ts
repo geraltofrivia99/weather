@@ -5,11 +5,16 @@ export interface State {
 }
 
 export const InitialState: State = {
-  ownCities: ['paris', 'moscow']
+  ownCities: []
 }
 
 export function weatherReducer(state = InitialState, action: weatherActions.Action) {
   switch (action.type) {
+    case weatherActions.FETCH_CITY_SUCCESS:
+      const city = action.payload.reduce((prev, curr) => [...prev, ...curr.city], ['paris'])
+      return {
+        ...state, ownCities: city
+      }
     case weatherActions.ADD_ONE:
       return {
         ...state, ownCities: [...state.ownCities, action.payload]

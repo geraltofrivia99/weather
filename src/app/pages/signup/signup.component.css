@@ -1,0 +1,14 @@
+.signup__container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.signup__form{
+  padding: 3rem;
+  border-radius: 50px;
+  
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -1,0 +1,10 @@
+.file_list_wrapper {
+  min-height: 100vh;
+
+}
+.file_list_container {
+
+}
+.list_of_files > ul {
+  list-style-type: none;
+}

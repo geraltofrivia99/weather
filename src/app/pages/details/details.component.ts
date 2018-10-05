@@ -10,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
 export class DetailsComponent implements OnInit {
 

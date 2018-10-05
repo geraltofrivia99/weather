@@ -1,20 +1,16 @@
-<div class="main__container">
-  <div class="login-card">
-
-    <main class="login-content">
-      <!-- login form -->
-      <h1 class="login-welcome-text">Welcome Back!</h1>
-      <form (submit)="login()" method="post" class="login-form">
-        <input type="text" autofocus placeholder="Account Username" name="username" class="login-input">
-        <input type="password" placeholder="Password" name="password" class="login-input">
-        <input type="submit" name="submit" placeholder="Log in" class="login-btn">
-      </form>
-    </main>
-    <!-- linking to signup -->
-    <aside class="login__illustration">
-      <span class="signup-notice">Don't have an account? &nbsp;</span>
-      <a class="signup-link" href="/signup/index.php">Sign up</a>
-    </aside>
-
-  </div>
+<div class="loggin__container">
+  <form (submit)="onSubmit($event)" class="loggin__form">
+    <mat-form-field>
+      <input matInput placeholder="Enter your login" [formControl]="email" required>
+      <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [formControl]="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <button mat-button color="accent" type="submit">SignIn</button>
+    <div class="signup_link">
+      <a routerLink="/signup" routerLinkActive="active">Go to SignUp</a>
+    </div>
+  </form>
 </div>

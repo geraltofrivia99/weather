@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy, AfterContentInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {WeatherService} from '../../services/weather/weather.service';
 import {UiService} from '../../services/ui/ui.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../redux/reducers';
 import * as fromActions from '../../redux/actions';
+import {share} from 'rxjs/operators';
 
 @Component({
   selector: 'app-weather-card',
@@ -27,6 +28,7 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
   constructor(public weather: WeatherService,
               public router: Router,
               public ui: UiService,
+              private cdr: ChangeDetectorRef,
               public store: Store<fromRoot.State>) {
   }
 
@@ -34,8 +36,8 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
     this.ui.darkModeState.subscribe((isDark) => {
       this.darkMode = isDark;
     });
-    this.onDeleteElement = false;
 
+    this.onDeleteElement = false;
     this.weather.getWeatherState(this.city)
       .subscribe((data: string) => {
         this.condition = data;
@@ -48,14 +50,13 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
       this.minTemp = data;
     });
     this.weather.getMaxTemp(this.city).subscribe((data: number) => {
-      this.maxTemp = data;
+      this.maxTemp = data; this.cdr.markForCheck();
     });
   }
   
   ngOnDestroy() {
   }
-
-
+  
   openDetails() {
     this.router.navigateByUrl(`/details/${this.city}`);
   }

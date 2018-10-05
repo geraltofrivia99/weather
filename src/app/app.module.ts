@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -9,7 +9,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
 import { reducers, metaReducers } from './redux/reducers';
-import { effects } from './redux/effects';
+
 import { WeatherEffects } from './redux/effects/weather.effects'
 
 import {HomeComponent} from './pages/home/home.component';
@@ -28,6 +28,31 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {ChatComponent} from './chat/chat.component';
+import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
+import {FileListComponent} from './uploads/file-list/file-list.component';
+import {MainPageComponent} from './pages/main-page/main-page.component';
+
+
+import { AuthService } from './services/auth/auth.service';
+import { GraphQLModule } from './graphql.module';
+import {AuthGuard} from './services/auth.guard';
+
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { DropZoneDirective } from './uploads/drop-zone.directive';
+import {FileSizePipe} from './uploads/file-size.pipe';
+
+export const config = {
+  apiKey: "AIzaSyCPnJ7Uwq1d13lAdD3gxuj37gCcGPpEWQA",
+    authDomain: "filestore-3f322.firebaseapp.com",
+    databaseURL: "https://filestore-3f322.firebaseio.com",
+    projectId: "filestore-3f322",
+    storageBucket: "filestore-3f322.appspot.com",
+    messagingSenderId: "646237054398"
+}
 
 
 @NgModule({
@@ -41,6 +66,12 @@ import {MatMenuModule} from '@angular/material/menu';
     LoginComponent,
     SignupComponent,
     AddCardComponent,
+    ChatComponent,
+    DropZoneDirective,
+    FileUploadComponent,
+    FileSizePipe,
+    FileListComponent,
+    MainPageComponent
     
   ],
   imports: [
@@ -48,6 +79,7 @@ import {MatMenuModule} from '@angular/material/menu';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([WeatherEffects]),
     StoreDevtoolsModule.instrument({
@@ -58,11 +90,18 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    GraphQLModule,
+    AngularFireModule.initializeApp(config),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule
   ],
   providers: [
     WeatherService,
-    UiService
+    UiService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

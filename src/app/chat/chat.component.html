@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <div #scrollContainer class="container_message scroll">
+    <div class="cont">
+      <div *ngFor="let msg of data | async" [ngClass]="msg.user.id == userId ? 'msg' : 'msg_alien'">
+        <div class="msg_content">
+          <p [ngClass]="msg.user.id == userId ? 'msg_title' : 'msg_title_alien'">{{msg.user.username | titlecase}} <span>{{msg.createdAt | date: 'mm:ss'}}</span></p>
+          <p [ngClass]="msg.user.id == userId ? 'msg_body' : 'msg_body_alien'">{{msg.text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="input_text">
+    <form class="example-form" (submit)="onClickk($event)">
+      <mat-form-field class="example-full-width">
+        <input matInput  maxlength="256" placeholder="Type you message" [formControl]="message" required>
+        <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      </mat-form-field>
+    </form>
+  </div>
+</div>

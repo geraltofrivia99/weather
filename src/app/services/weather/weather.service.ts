@@ -2,6 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subject, ReplaySubject, Observable} from 'rxjs';
 
+interface myData {
+  success: boolean,
+  message: string,
+  city: string[]
+}
+interface deleteData {
+  success: boolean,
+  message: string,
+}
+
 @Injectable()
 export class WeatherService {
 
@@ -14,6 +24,25 @@ export class WeatherService {
         console.log('от второго sub:', x, data);
       });
     return dataSub;
+  }
+  getCity() {
+    // const dataSub = new Subject<string>();
+    return this.http.get<myData>(
+      'api/city'
+    )
+  }
+  postCity(city: string, description?: string) {
+    return this.http.post<deleteData>(
+      'api/city', {
+        city,
+        description
+      }
+    )
+  }
+  deleteCity(city: string) {
+    return this.http.delete<deleteData>(
+      `api/city/${city}`
+    )
   }
   
 

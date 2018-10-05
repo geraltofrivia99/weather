@@ -61,6 +61,9 @@
 
 
     <div class="mode-toggle__container">
+      <div class="signup">
+        <a routerLink="/signup">SignUp</a>
+      </div>
       <label class="toggle-button__container">
         <!-- <input (click)="modeToggleSwitch()" type="checkbox" class="mode-toggle__input"/>
         <span [ngClass]="{'mode-toggle__bg-checked': darkModeActive}" class="mode-toggle__bg"></span>
@@ -75,13 +78,13 @@
 
   <!--<router-outlet></router-outlet>-->
   <main class="main__container">
-    <div class="main-container__bg" [ngClass]="{'main-container__bg-dark': darkModeActive}"></div>
+    <!-- <div class="main-container__bg" [ngClass]="{'main-container__bg-dark': darkModeActive}"></div> -->
     <router-outlet></router-outlet>
   </main>
 
   <!-- Footer -->
 
-  <footer class="main__footer">
+  <!-- <footer class="main__footer">
     <small class="copyright__text">Copyright © 2018 Design by Geralt</small>
-  </footer>
+  </footer> -->
 </div>

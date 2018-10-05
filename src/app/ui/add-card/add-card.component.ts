@@ -5,7 +5,7 @@ import {UiService} from '../../services/ui/ui.service';
   selector: 'app-add-card',
   templateUrl: './add-card.component.html',
   styleUrls: ['./add-card.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
 export class AddCardComponent implements OnInit {
 
