@@ -117,9 +117,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       //   // console.log(data.messages);
       //   // Write the data back to the cache.
       //   store.writeQuery({ query: getMessages, data });
-
-        
-      // },
+  // },
     })
     .subscribe()
     // this.data.subscribe(data => console.log(data))

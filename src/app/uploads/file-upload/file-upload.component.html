@@ -9,12 +9,11 @@
      <h3>AngularFire Drop Zone</h3>
 
      <div class="file">
+        
+        <a mat-raised-button [routerLink]="['/files', userId]">Go to file list</a>
         <label class="file-label">
 
-
         <input class="file-input" type="file" (change)="startUpload($event.target.files)">
-
-
           <span class="file-cta">
             <span class="file-icon">
               <i class="fa fa-upload"></i>
@@ -50,5 +49,4 @@
   <button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">Pause</button>
   <button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">Cancel</button>
   <button (click)="task.resume()" class="button is-info"   [disabled]="!(snap?.state === 'paused')">Resume</button>
-
 </div>

@@ -8,3 +8,50 @@
 .list_of_files > ul {
   list-style-type: none;
 }
+.content_wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+.file_list {
+  min-width: 300px;
+
+}
+/* .file-icon {
+  width: 150px;
+  height: 150px;
+
+} */
+.upload_icon {
+  width: 150px;
+  height: 150px;
+}
+.file {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+}
+.add_field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 300px;
+  min-width: 600px;
+  border: 2px dashed #f16624;
+  border-radius: 5px;
+  background: white;
+  margin: 5rem 3rem 0 3rem;
+}
+.dropzone.hovering {
+  border: 2px solid #f16624;
+  color: #dadada !important;
+}
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}

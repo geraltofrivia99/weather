@@ -25,6 +25,7 @@ import {UiService} from './services/ui/ui.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
@@ -33,6 +34,7 @@ import {ChatComponent} from './chat/chat.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
 import {MainPageComponent} from './pages/main-page/main-page.component';
+
 
 
 import { AuthService } from './services/auth/auth.service';
@@ -88,6 +90,7 @@ export const config = {
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
+    MatListModule,
     MatSlideToggleModule,
     MatIconModule,
     MatMenuModule,

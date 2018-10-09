@@ -34,6 +34,17 @@ const getUser = gql`
     }
   }
 `;
+const getuserFiles = gql`
+  query userFiles($userId: Int!) {
+    userFiles(userId:$userId) {
+      id
+      url
+      type
+      name
+      createdAt
+    }
+  }
+`;
 
 @Injectable()
 export class AuthService {
@@ -90,4 +101,12 @@ export class AuthService {
     return console.log(payload.email);
   }
 
+  getUserFiles(userId): QueryRef<any> {
+    return this.apollo.watchQuery({
+      query: getuserFiles,
+      variables: {
+        userId: Number(userId)
+      }
+    });
+  }
 }
