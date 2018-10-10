@@ -33,13 +33,14 @@ export class LoginComponent implements OnInit {
     e.preventDefault();
     const email = this.email.value;
     const password = this.password.value;
+    console.log()
     this.auth.LoginStart(email, password)
     .subscribe(({data: {signIn: {ok, token, errors, user}}}) => {
       if (ok) {
         console.log(ok, token, user)
         localStorage.setItem('x-token', token);
         this.auth.setUserId(user.id);
-        this.router.navigate(['/home']);
+        this.router.navigate([`files/${user.id}`]);
       }
       else {
         console.log(errors)

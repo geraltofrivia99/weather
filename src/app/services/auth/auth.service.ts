@@ -11,8 +11,8 @@ interface myData {
   token?: string
 }
 const LoggedIn = gql`
-  mutation signIn($loggin: String!, $password: String!) {
-    signIn(login: $loggin password: $password) {
+  mutation signIn($login: String!, $password: String!) {
+    signIn(login: $login, password: $password) {
       ok
       token
       user{
@@ -71,11 +71,12 @@ export class AuthService {
     this._isAuthenticated = true;
   }
 
-  LoginStart(loggin, password) {
+  LoginStart(login, password) {
+    console.log(login, password)
     return this.apollo.mutate<any>({
       mutation: LoggedIn,
       variables: {
-        loggin,
+        login,
         password
       },
     })

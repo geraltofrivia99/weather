@@ -19,6 +19,9 @@ const ws = new SubscriptionClient(`ws://localhost:8000/graphql`,{
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   // we assume `headers` as a defined instance of HttpHeaders
+  const token = localStorage.getItem('x-token');
+  if (!token) return forward(operation);
+  
   operation.setContext({
     headers: new HttpHeaders().set('Authorization', localStorage.getItem('x-token') || null)
   });

@@ -15,7 +15,6 @@ const routes: Routes = [
   {
   path: '',
   component: MainPageComponent,
-  canActivate: [AuthGuard],
   children: [
     { path: '', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
