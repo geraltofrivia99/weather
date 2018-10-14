@@ -1,6 +1,6 @@
 .root__container {
   overflow-x: hidden;
-  
+  display: flex;
 }
 
 /*
@@ -13,6 +13,9 @@
     Slide Menu
 = = = = = = = = =
 */
+.main__container {
+  width: 100%;
+}
 .side-menu__container {
   position: fixed;
   left: 0;

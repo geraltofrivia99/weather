@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -8,13 +7,17 @@ import { map } from 'rxjs/operators';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  sideMenuShow: boolean = false;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  constructor() {}
+    ngOnInit() {
+      
+    }
+   
+    openSideMenu() {
+      this.sideMenuShow = !this.sideMenuShow
+    }
     
-  constructor(private breakpointObserver: BreakpointObserver) {}
-  
   }
+  

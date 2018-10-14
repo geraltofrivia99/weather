@@ -34,7 +34,9 @@ import {ChatComponent} from './chat/chat.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
 import {MainPageComponent} from './pages/main-page/main-page.component';
-
+import {NavbarComponent} from './navbar/navbar.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DialogContentExample, DialogContentExampleDialog} from './navbar/modals/modal.add_directuser';
 
 
 import { AuthService } from './services/auth/auth.service';
@@ -73,7 +75,11 @@ export const config = {
     FileUploadComponent,
     FileSizePipe,
     FileListComponent,
-    MainPageComponent
+    MainPageComponent,
+    NavbarComponent,
+    DialogContentExample,
+    DialogContentExampleDialog
+    
     
   ],
   imports: [
@@ -89,6 +95,7 @@ export const config = {
     }),
     BrowserAnimationsModule,
     MatInputModule,
+    MatDialogModule,
     MatButtonModule,
     MatListModule,
     MatSlideToggleModule,
@@ -100,6 +107,7 @@ export const config = {
     AngularFireDatabaseModule,
     AngularFireStorageModule
   ],
+  entryComponents: [DialogContentExample, DialogContentExampleDialog],
   providers: [
     WeatherService,
     UiService,

@@ -16,11 +16,9 @@
   border-radius: 1rem;
 }
 .container_message {
-  width: 100vw;
   
   overflow: auto;
   flex-grow: 2;
-  margin-top: 70px;
   
 }
 .cont {
