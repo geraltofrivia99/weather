@@ -29,6 +29,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ChatComponent} from './chat/chat.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
@@ -98,6 +99,7 @@ export const config = {
     MatDialogModule,
     MatButtonModule,
     MatListModule,
+    MatAutocompleteModule,
     MatSlideToggleModule,
     MatIconModule,
     MatMenuModule,

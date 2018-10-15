@@ -34,6 +34,14 @@ const getUser = gql`
     }
   }
 `;
+const getUsers = gql`
+  query getUsers {
+    users {
+      id
+      username
+    }
+  }
+`;
 const getuserFiles = gql`
   query userFiles($userId: Int!) {
     userFiles(userId:$userId) {
@@ -108,6 +116,11 @@ export class AuthService {
       variables: {
         userId: Number(userId)
       }
+    });
+  }
+  getUsers(): QueryRef<any> {
+    return this.apollo.watchQuery({
+      query: getUsers,
     });
   }
 }

@@ -34,7 +34,7 @@ const routes: Routes = [
   {path: 'add', component: AddComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'chat', component: ChatComponent},
+  {path: 'chat/:id', component: ChatComponent},
 ];
 
 @NgModule({
