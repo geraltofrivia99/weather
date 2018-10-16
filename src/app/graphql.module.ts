@@ -13,7 +13,10 @@ import { HttpHeaders } from '@angular/common/http';
 
 const uri = 'http://localhost:8000/graphql'; // <-- add the URL of the GraphQL server here
 const ws = new SubscriptionClient(`ws://localhost:8000/graphql`,{
-  reconnect: true
+  reconnect: true,
+  connectionParams: () => ({
+    token: localStorage.getItem('x-token') || null,
+  }),
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -27,6 +30,20 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   });
   return forward(operation);
 })
+const afterwareLink = new ApolloLink((operation, forward) =>
+  forward(operation).map((response) => {
+    const { response: { headers } } = operation.getContext();
+    if (headers) {
+      const token = headers.get('x-token');
+
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+
+    }
+    return response;
+  }));
+
 
 // const auth = setContext((_, data) => {
 //   console.log(data)

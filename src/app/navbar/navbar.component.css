@@ -54,3 +54,16 @@
   padding: 3px;
   cursor: pointer;
 }
+.direct_list {
+  padding: .5rem;
+}
+.direct_list p {
+  font-size: .8em;
+  color: gray;
+}
+.direct_list li {
+  font-size: .8em;
+  color: gray;
+  padding: .5em 0 .5em 0;
+  cursor: pointer;
+}

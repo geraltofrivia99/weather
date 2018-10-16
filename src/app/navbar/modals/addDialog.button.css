@@ -1,0 +1,6 @@
+.dialog_btn path {
+  transition: fill .3s;
+}
+.dialog_btn:hover path {
+  fill: blue;
+}
