@@ -24,10 +24,12 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   // we assume `headers` as a defined instance of HttpHeaders
   const token = localStorage.getItem('x-token');
   if (!token) return forward(operation);
+
   console.log('idet')
   operation.setContext({
     headers: new HttpHeaders().set('authorization', localStorage.getItem('x-token') || null)
   });
+
   return forward(operation);
 })
 const afterwareLink = new ApolloLink((operation, forward) =>
@@ -39,8 +41,8 @@ const afterwareLink = new ApolloLink((operation, forward) =>
       if (token) {
         localStorage.setItem('token', token);
       }
-
     }
+
     return response;
   }));
 

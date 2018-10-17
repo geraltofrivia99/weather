@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, NgZone} from '@angular/core';
 import {MatDialog} from '@angular/material';
 // import {FormBuilder, FormGroup} from '@angular/forms';
 import {FormControl} from '@angular/forms';
@@ -24,7 +24,7 @@ interface User {
 export class DialogContentExample implements OnInit{
   inputvalue = "hello";
 
-  constructor(public dialog: MatDialog, public router: Router) {}
+  constructor(public dialog: MatDialog, public router: Router, private route: ActivatedRoute, private zone: NgZone,) {}
 
   ngOnInit() {
     
@@ -34,7 +34,9 @@ export class DialogContentExample implements OnInit{
     const dialogRef = this.dialog.open(DialogContentExampleDialog);
 
     dialogRef.afterClosed().subscribe(id => {
-      this.router.navigateByUrl(`/chat/${id}`)
+      this.zone.run(() => {
+        this.router.navigate([`/chat/${id}`], { relativeTo: this.route });
+      })
     });
   }
 }

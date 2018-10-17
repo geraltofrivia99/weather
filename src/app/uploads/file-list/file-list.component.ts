@@ -17,24 +17,18 @@ const createFile = gql`
     }
   }
 `;
-const getFiles = gql`
-  query files {
-    files {
-      id
-      url
-      type
-      name
-    }
-  }
-`;
+
 const getuserFiles = gql`
-  query userFiles($userId: Int!) {
-    userFiles(userId:$userId) {
+  query userFiles {
+    userFiles {
       id
       url
       type
       name
       createdAt
+      user {
+        id
+      }
     }
   }
 `;
@@ -67,10 +61,12 @@ export class FileListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userId = Number(localStorage.getItem('userId'));
-    this.filesQuery = this.apollo.watchQuery({query: getuserFiles, variables: {userId: Number(this.userId)}});
+    this.filesQuery = this.apollo.watchQuery({query: getuserFiles});
     this.files = this.filesQuery.valueChanges.pipe(
-      map(({data})=> data.userFiles)
+      map(({data})=> {
+        this.userId = data.userFiles[0].id
+        return data.userFiles
+      })
     )
   }
   // goToFile() {
