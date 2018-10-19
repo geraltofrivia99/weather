@@ -1,56 +1,25 @@
-<div class="file_list_wrapper">
+<div class="file_list_wrapper"
+dropZone
+(hovered)="toggleHover($event)"
+(dropped)="startUpload($event)"
+[class.hovering]="isHovering"
+>
   <div class="container">
     <div class="content_wrapper">
       <div class="file_list">
+        <h1>Transfer you files</h1>
         <mat-list>
           <h3 mat-subheader>Files</h3>
           <mat-list-item *ngFor="let file of files | async">
-            <mat-icon mat-list-icon>note</mat-icon>
-            <p mat-line><a [href]="file.url" target="_blank" rel="noopener" download="file.url">{{file.name}}</a></p>
+            <span class="type_image" *ngIf="checkedType(file.type) === 'image'"><img src="{{file.url}}" alt="image"></span>
+            <span class="type_image" *ngIf="checkedType(file.type) === 'Doc'"></span>
+            <p mat-line><a [href]="file.url" target="_blank" rel="noopener" download="file.url">{{file.filename}}</a></p>
             <p mat-line> {{file.createdAt | date: 'mm:ss'}} </p>
           </mat-list-item>
         </mat-list>
-        <a mat-raised-button [routerLink]="['/home',userId]">Add file</a>
-      </div>
-      <div class="add_field">
-        <div class="dropzone" 
-        dropZone
-        (hovered)="toggleHover($event)"
-        (dropped)="startUpload($event)"
-        [class.hovering]="isHovering">
         
-        <div class="file">
-          <input class="file-input" type="file" (change)="startUpload($event.target.files)">
-          <img class="upload_icon" src="src/assets/img/Upload.svg" alt="">
-        </div>
       </div>
-      <div *ngIf="percentage | async as pct">
-        
-        <progress class="progress is-info" 
-        [value]="pct" 
-        max="100">        
-      </progress>
-      
-      {{ pct | number }}%
-      
-    </div>
-    
-    
-    <div *ngIf="snapshot | async as snap">
-      {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }} 
-      
-      <!-- <div *ngIf="downloadURL | async as url">
-        <h3>Results!</h3>
-        <img [src]="url"><br>
-        <a [href]="url" target="_blank" rel="noopener">Download Me!</a>
-      </div>  -->
-      
-      <button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">Pause</button>
-      <button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">Cancel</button>
-      <button (click)="task.resume()" class="button is-info"   [disabled]="!(snap?.state === 'paused')">Resume</button>
     </div>
   </div>
-</div>
-</div>
 </div>
 

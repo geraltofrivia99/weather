@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {Observable} from 'rxjs';
@@ -24,7 +24,7 @@ const getuserFiles = gql`
       id
       url
       type
-      name
+      filename
       createdAt
       user {
         id
@@ -32,11 +32,19 @@ const getuserFiles = gql`
     }
   }
 `;
+export const UPLOAD_FILE = gql`
+  mutation singleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      filename
+    }
+  }
+`;
 
 @Component({
   selector: 'app-file-list',
   templateUrl: './file-list.component.html',
-  styleUrls: ['./file-list.component.css']
+  styleUrls: ['./file-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileListComponent implements OnInit {
   files: Observable<any>;
@@ -56,7 +64,7 @@ export class FileListComponent implements OnInit {
   isHovering: boolean;
   urlSubsc;
   filesQuery: QueryRef<any>;
-  constructor(public router: Router, private auth: AuthService, private storage: AngularFireStorage, private apollo: Apollo) { 
+  constructor(public router: Router, private auth: AuthService, private storage: AngularFireStorage, private apollo: Apollo, private cdr: ChangeDetectorRef) { 
     
   }
 
@@ -76,47 +84,31 @@ export class FileListComponent implements OnInit {
     this.isHovering = event;
   }
 
-
   startUpload(event: FileList) {
-    // The File object
+   
     const file = event.item(0);
-    // Client-side validation example
-    // if (file.type.split('/')[0] !== 'image') { 
-    //   console.error('unsupported file type :( ')
-    //   return;
-    // }
-
-    // The storage path
-    const path = `${this.userId}/${new Date().getTime()}_${file.name}`;
     
-    // Totally optional metadata
-    const customMetadata = { app: 'My AngularFire-powered PWA!' };
-
-    // The main task
-    this.task = this.storage.upload(path, file, { customMetadata });
-    
-
-    // Progress monitoring
-    this.percentage = this.task.percentageChanges();
-    this.snapshot = this.task.snapshotChanges();
-    this.percentage.pipe(
-      filter(per => per === 100),
-      switchMap(() => this.storage.ref(path).getDownloadURL()),
-      switchMap(url => 
-        this.apollo.mutate<any>({
-                  mutation: createFile,
-                  variables: {
-                    url,
-                    userId: this.userId,
-                    type: "Doc",
-                    name: file.name,
-                  },
-                  refetchQueries: [{
-                    query: getuserFiles,
-                    variables: { userId: Number(this.userId) },
-                  }],
-                }))
-    ).subscribe();
+    console.log(event.item(0))
+    this.apollo.mutate<any>({
+      mutation: UPLOAD_FILE,
+      variables: {
+        file
+      },
+      refetchQueries: [{
+        query: getuserFiles,
+      }],
+    }).subscribe((data) => console.log(data))
+  }
+  checkedType(type) {
+    if (type.indexOf('image/') > -1) {
+      return 'image'
+    }
+    if (type.indexOf('Doc') > -1) {
+      return 'Doc'
+    }
+  }
+  RenderText(url) {
+    console.log(url)
   }
   isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
@@ -133,3 +125,44 @@ export class FileListComponent implements OnInit {
               // // Write the data back to the cache.
               // store.writeQuery({ query: getuserFiles, variables: {userId: this.userId}, data });
               //   },
+              // startUpload(event: FileList) {
+              //   // The File object
+              //   const file = event.item(0);
+              //   // Client-side validation example
+              //   // if (file.type.split('/')[0] !== 'image') { 
+              //   //   console.error('unsupported file type :( ')
+              //   //   return;
+              //   // }
+              //   console.log(event);
+              //   // The storage path
+              //   const path = `${this.userId}/${new Date().getTime()}_${file.name}`;
+                
+              //   // Totally optional metadata
+              //   const customMetadata = { app: 'My AngularFire-powered PWA!' };
+            
+              //   // The main task
+              //   this.task = this.storage.upload(path, file, { customMetadata });
+                
+            
+              //   // Progress monitoring
+              //   this.percentage = this.task.percentageChanges();
+              //   this.snapshot = this.task.snapshotChanges();
+              //   this.percentage.pipe(
+              //     filter(per => per === 100),
+              //     switchMap(() => this.storage.ref(path).getDownloadURL()),
+              //     switchMap(url => 
+              //       this.apollo.mutate<any>({
+              //                 mutation: createFile,
+              //                 variables: {
+              //                   url,
+              //                   userId: this.userId,
+              //                   type: "Doc",
+              //                   name: file.name,
+              //                 },
+              //                 refetchQueries: [{
+              //                   query: getuserFiles,
+              //                   variables: { userId: Number(this.userId) },
+              //                 }],
+              //               }))
+              //   ).subscribe();
+              // }

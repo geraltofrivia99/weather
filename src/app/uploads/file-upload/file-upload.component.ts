@@ -36,6 +36,13 @@ const getFiles = gql`
     }
   }
 `;
+export const UPLOAD_FILE = gql`
+  mutation singleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      filename
+    }
+  }
+`;
 
 @Component({
   selector: 'file-upload',
@@ -76,52 +83,60 @@ export class FileUploadComponent implements OnInit{
     //   console.error('unsupported file type :( ')
     //   return;
     // }
-
-    // The storage path
-    const path = `${this.userId}/${new Date().getTime()}_${file.name}`;
+    console.log(event.item(0))
+    this.apollo.mutate<any>({
+                mutation: UPLOAD_FILE,
+                variables: {
+                  file
+                },
+              })
+              .subscribe((data) => console.log(data))
     
-    // Totally optional metadata
-    const customMetadata = { app: 'My AngularFire-powered PWA!' };
+    // The storage path
+    // const path = `${this.userId}/${new Date().getTime()}_${file.name}`;
+    
+    // // Totally optional metadata
+    // const customMetadata = { app: 'My AngularFire-powered PWA!' };
 
-    // The main task
-    this.task = this.storage.upload(path, file, { customMetadata });
+    // // The main task
+    // this.task = this.storage.upload(path, file, { customMetadata });
     
 
     // Progress monitoring
-    this.percentage = this.task.percentageChanges();
-    this.snapshot = this.task.snapshotChanges();
+    // this.percentage = this.task.percentageChanges();
+    // this.snapshot = this.task.snapshotChanges();
     
     // The file's download URL
     // this.downloadURL = this.storage.ref(path).getDownloadURL();
-    this.task.percentageChanges().subscribe(data => {
-      if (data === 100) {
-        this.downloadURL = this.storage.ref(path).getDownloadURL();
-        this.urlSubsc = this.storage.ref(path).getDownloadURL().subscribe(data => {
-          if (typeof data === 'string') {
-            this.apollo.mutate<any>({
-              mutation: addFile,
-              variables: {
-                url: data,
-                userId: Number(this.userId),
-                type: "Doc",
-                name: file.name
-              },
-              update: (store, { data: { createFile } }) => {
-                // Read the data from the cache for this query.
-                const data = store.readQuery({query: getFiles });
-                // Add our channel from the mutation to the end.
-                console.log(data);
-                console.log(createFile);
-                // data.messages.edges.splice(0,0,createMessage);
-                // console.log(data.messages);
-                // Write the data back to the cache.
-                store.writeQuery({ query: getFiles, data });
+    // this.task.percentageChanges().subscribe(data => {
+    //   if (data === 100) {
+    //     this.downloadURL = this.storage.ref(path).getDownloadURL();
+    //     this.urlSubsc = this.storage.ref(path).getDownloadURL().subscribe(data => {
+    //       if (typeof data === 'string') {
+    //         this.apollo.mutate<any>({
+    //           mutation: addFile,
+    //           variables: {
+    //             url: data,
+    //             userId: Number(this.userId),
+    //             type: "Doc",
+    //             name: file.name
+    //           },
+    //           update: (store, { data: { createFile } }) => {
+    //             // Read the data from the cache for this query.
+    //             const data = store.readQuery({query: getFiles });
+    //             // Add our channel from the mutation to the end.
+    //             console.log(data);
+    //             console.log(createFile);
+    //             // data.messages.edges.splice(0,0,createMessage);
+    //             // console.log(data.messages);
+    //             // Write the data back to the cache.
+    //             store.writeQuery({ query: getFiles, data });
         
-              },
-            })
-            .subscribe()
-          }
-        })
+    //           },
+    //         })
+    //         .subscribe()
+    //       }
+    //     })
         // this.downloadURL.subscribe(data => console.log(data));
         // this.apollo.mutate<any>({
         //   mutation: addFile,
@@ -145,8 +160,8 @@ export class FileUploadComponent implements OnInit{
         //   },
         // })
         // .subscribe()
-      }
-    })
+    //   }
+    // })
     // this.downloadURL.subscribe(data => console.log(data));
   }
   
