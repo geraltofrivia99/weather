@@ -103,8 +103,11 @@ export class FileListComponent implements OnInit {
     if (type.indexOf('image/') > -1) {
       return 'image'
     }
-    if (type.indexOf('Doc') > -1) {
-      return 'Doc'
+    if (type.indexOf('text/') > -1) {
+      return 'text'
+    }
+    if (type.indexOf('audio/') > -1) {
+      return 'audio'
     }
   }
   RenderText(url) {

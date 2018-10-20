@@ -123,4 +123,7 @@ export class AuthService {
       query: getUsers,
     });
   }
+  getTextFromFile(url) {
+    return this.http.get('http://localhost:8000/files/hello.txt', {responseType: 'text'})
+  }
 }

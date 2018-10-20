@@ -13,17 +13,28 @@
             >
               {{msg.sender.username | titlecase}} <span>{{msg.createdAt | date: 'mm:ss'}}</span></p>
           </div>
-          <p class="msg_body" [style.justifyContent]="msg.sender.id == userId ? 'flex-start' : 'flex-end'">{{msg.text}}</p>
+          <div class="msg_body" [style.justifyContent]="msg.sender.id == userId ? 'flex-start' : 'flex-end'">
+            <div *ngIf="msg.filetype" class="file_in_message">
+              <img [src]="msg.url" alt="image">
+              <br>
+            </div>
+            <p>{{msg.text}}</p></div>
         </div>
       </div>
     </div>
   </div>
   <div class="input_text">
+    <div *ngIf="fileMessage" class="file_modal">
+      <img src="src/assets/img/add_file.svg" alt="">
+    </div>
+    <div class="download_file">
+      <input class="file-input" type="file" id="file" (change)="startUpload($event)">
+      <label for="file">
+          <svg width="48" height="30px" width="30px" viewBox="0 0 48 48"><path d="M26 14h-4v8h-8v4h8v8h4v-8h8v-4h-8v-8zM24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z"/></svg>
+      </label>
+    </div>
     <form class="example-form" (submit)="onClickk($event)">
-      <mat-form-field class="example-full-width">
-        <input matInput  maxlength="256" placeholder="Type you message" [formControl]="message" required>
-        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-      </mat-form-field>
+      <input class="example-full-width" type="text" placeholder="Type you message" [formControl]="message">
     </form>
   </div>
 </div>

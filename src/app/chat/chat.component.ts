@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, AfterViewChecked, OnDestroy } from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 import {map, switchMap} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
@@ -19,13 +20,15 @@ query getDirectMessages($otherUserId: Int!) {
       id
       username
     }
+    url
+    filetype
   }
 }
 `;
 
 const addNewDirMessage = gql`
-  mutation createDirectMessage($receiverId:Int!, $text: String!) {
-    createDirectMessage(receiverId: $receiverId, text: $text) 
+  mutation createDirectMessage($receiverId:Int!, $text: String!, $file: Upload) {
+    createDirectMessage(receiverId: $receiverId, text: $text, file: $file) 
   }
 `;
 
@@ -40,6 +43,8 @@ subscription newDirectMessage($userId: Int!) {
       id
       username
     }
+    url
+    filetype
   }
 }
 `;
@@ -53,6 +58,8 @@ subscription newDirectMessage($userId: Int!) {
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   navigationSubscription;
 
+  localUrl;
+  fileMessage: File;
   userId;
   reciverId;
   data: Observable<any>;
@@ -60,7 +67,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   message = new FormControl({value:'', disabled: false});
   @ViewChild('scrollContainer') private myScrollContainer: ElementRef;
 
-  constructor(private apollo: Apollo, private cdr: ChangeDetectorRef, private route: ActivatedRoute, private router: Router) { 
+  constructor(private apollo: Apollo, private cdr: ChangeDetectorRef, private route: ActivatedRoute, private router: Router, private sanitizer:DomSanitizer) { 
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         this.initialiseInvites();
@@ -82,6 +89,12 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   
   ngOnInit() {
     console.log('Init chat')
+    
+  }
+  startUpload(event) {
+    console.log(event.target.files);
+    this.fileMessage = event.target.files.item(0);
+    // this.localUrl = this.sanitizer.bypassSecurityTrustUrl(event.srcElement.value);
     
   }
   ngAfterViewChecked() {        
@@ -111,6 +124,8 @@ subscribeToNewMessages() {
       if (!subscriptionData) {
         return prev;
       }
+      console.log(prev);
+      console.log(subscriptionData)
       return {
         ...prev,
         directMessages: [
@@ -123,16 +138,18 @@ subscribeToNewMessages() {
  
   onClickk(e) {
     e.preventDefault();
-    console.log(this.message.value, this.reciverId);
+    console.log(this.message.value, this.reciverId, this.fileMessage);
     this.apollo.mutate<any>({
       mutation: addNewDirMessage,
       variables: {
         text: this.message.value,
-        receiverId: +this.reciverId
+        receiverId: +this.reciverId,
+        file: this.fileMessage || null
       },
     }).subscribe()
-  
+    
     this.message.setValue('');
+    this.fileMessage = null;
   }
   scrollToBottom(): void {
     try {

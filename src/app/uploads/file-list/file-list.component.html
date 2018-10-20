@@ -12,7 +12,12 @@ dropZone
           <h3 mat-subheader>Files</h3>
           <mat-list-item *ngFor="let file of files | async">
             <span class="type_image" *ngIf="checkedType(file.type) === 'image'"><img src="{{file.url}}" alt="image"></span>
-            <span class="type_image" *ngIf="checkedType(file.type) === 'Doc'"></span>
+            <span class="type_image" *ngIf="checkedType(file.type) === 'audio'">
+              <audio controls>
+                <source src="{{file.url}}" type="{{file.type}}" />
+              </audio>
+            </span>
+            <span class="type_image" *ngIf="checkedType(file.type) === 'text'"><app-render-text [url]="file.url"></app-render-text></span>
             <p mat-line><a [href]="file.url" target="_blank" rel="noopener" download="file.url">{{file.filename}}</a></p>
             <p mat-line> {{file.createdAt | date: 'mm:ss'}} </p>
           </mat-list-item>

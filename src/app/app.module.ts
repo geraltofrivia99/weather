@@ -38,6 +38,8 @@ import {MainPageComponent} from './pages/main-page/main-page.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DialogContentExample, DialogContentExampleDialog} from './navbar/modals/modal.add_directuser';
+import {RenderTextComponent} from './uploads/file-list/render-text/render-text.component';
+import {ImageFileComponent} from './chat/image-file/image-file.component';
 
 
 
@@ -80,7 +82,9 @@ export const config = {
     MainPageComponent,
     NavbarComponent,
     DialogContentExample,
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    RenderTextComponent,
+    ImageFileComponent
     
     
   ],
