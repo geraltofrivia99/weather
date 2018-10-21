@@ -20,21 +20,28 @@ const routes: Routes = [
     { path: 'signup', component: SignupComponent },
   ]
   },
-  {
-    path: 'files/:id',
-    component: FileListComponent,
+  // {
+  //   path: 'files/:id',
+  //   component: FileListComponent,
     
-  },
+  // },
   {
-    path: 'home/:id',
+    path: 'home',
     component: HomeComponent,
-    
+    children: [
+      {
+        path: 'files/:id',
+        component: FileListComponent,
+        
+      },
+      {path: 'chat/:id', component: ChatComponent},
+    ]
   },
   {path: 'details/:city', component: DetailsComponent},
   {path: 'add', component: AddComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'chat/:id', component: ChatComponent},
+  // {path: 'chat/:id', component: ChatComponent},
 ];
 
 @NgModule({

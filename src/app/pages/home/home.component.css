@@ -1,5 +1,5 @@
 /*Home Layout*/
 .main__container {
- margin-top: 66px;
- height: calc(100vh - 66px);
+  display: flex;
+  width: 100%;
 }

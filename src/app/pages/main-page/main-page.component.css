@@ -1,9 +1,7 @@
 .main_wrapper {
   position: relative;
-  background: #84ffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #616161 0%, #424242 43%, #616161 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #616161 0%,#424242 43%,#616161 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #616161 0%,#424242 43%,#616161 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background-image: url(/src/assets/img/nature_wall.jpg);
+  background-size: cover;
   height: 100vh;
 
 }
@@ -35,7 +33,27 @@
   margin-top: 3rem;
 }
 .login_page {
-  padding: 2rem;
+  box-sizing: border-box;
+  background: transparent;
+  box-shadow: 0 10px 20px rgba(0,0,0, .5);
+  transition: .5s;
+  border-radius: 5px;
+  width: 350px;
+  margin-top: 7rem;
+}
+.login_page:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0);
+  background: rgba(255,255,255,.8);
+  
+}
+.signup_link {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+}
+.signup_link a {
+  color: #fff;
+  text-decoration: none;
 }
 /* --------------------------- MEDIA ---------------------------- */
 @media (min-width: 768px) {

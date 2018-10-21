@@ -1,6 +1,6 @@
 .file_list_wrapper {
   min-height: 100vh;
-
+  min-width: 100vw;
 }
 .file_list_container {
 

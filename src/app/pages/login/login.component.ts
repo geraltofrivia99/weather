@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         console.log(ok, token, user)
         localStorage.setItem('x-token', token);
         this.auth.setUserId(user.id);
-        this.router.navigate([`files/${user.id}`]);
+        this.router.navigate([`home/files/${user.id}`]);
       }
       else {
         console.log(errors)

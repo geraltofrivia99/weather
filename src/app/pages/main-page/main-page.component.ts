@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UiService} from '../../services/ui/ui.service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  LinkAuth: boolean;
+  constructor(public ui: UiService) { }
 
   ngOnInit() {
+    this.ui.LinkAuth.subscribe((value) => {
+      this.LinkAuth = value;
+    });
+  }
+  onClickToLink() {
+    this.ui.LinkAuth.next(!this.LinkAuth);
   }
 
 }
