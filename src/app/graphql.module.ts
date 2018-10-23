@@ -9,12 +9,11 @@ import { WebSocketLink } from "apollo-link-ws";
 // import { setContext } from 'apollo-link-context';
 import { ApolloLink, from } from 'apollo-link';
 // import { HttpHeaders } from '@angular/common/http';
-import { createHttpLink } from './createFileLink';
 import { createUploadLink } from 'apollo-upload-client';
 
 
 const uri = 'http://localhost:8000/graphql'; // <-- add the URL of the GraphQL server here
-const ws = new SubscriptionClient(`ws://localhost:8000/graphql`,{
+const ws = new SubscriptionClient(`ws://localhost:8000/subscriptions`,{
   reconnect: true,
   connectionParams: () => ({
     token: localStorage.getItem('x-token') || null,
@@ -27,7 +26,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('x-token');
   if (!token) return forward(operation);
 
-  console.log('idet')
   operation.setContext({
     headers: {
       authorization: localStorage.getItem("x-token") || null
@@ -39,6 +37,8 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 const afterwareLink = new ApolloLink((operation, forward) =>
   forward(operation).map((response) => {
     const { response: { headers } } = operation.getContext();
+    console.log(operation.getContext());
+    console.log('AFTERWARE', headers);
     if (headers) {
       const token = headers.get('x-token');
 
@@ -68,7 +68,8 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 // });
 
 export function createApollo() {
-  const http = createUploadLink({uri})
+  const http = createUploadLink({uri});
+  const httpMA = afterwareLink.concat(authMiddleware.concat(http))
   const wsClient = new WebSocketLink(ws);
   const link = split(
     // split based on operation type
@@ -77,10 +78,10 @@ export function createApollo() {
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsClient,
-    http,
+    httpMA,
   ); 
   return {
-    link: from([authMiddleware, link]),
+    link,
     cache: new InMemoryCache(),
   };
 }

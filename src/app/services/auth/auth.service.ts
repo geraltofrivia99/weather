@@ -15,6 +15,7 @@ const LoggedIn = gql`
     signIn(login: $login, password: $password) {
       ok
       token
+      refreshToken
       user{
         id
         username

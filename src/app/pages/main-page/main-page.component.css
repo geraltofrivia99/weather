@@ -1,6 +1,6 @@
 .main_wrapper {
   position: relative;
-  background-image: url(/src/assets/img/nature_wall.jpg);
+  background-image: url(/assets/img/nature_wall.jpg);
   background-size: cover;
   height: 100vh;
 

@@ -72,6 +72,7 @@ export class FileListComponent implements OnInit {
     this.filesQuery = this.apollo.watchQuery({query: getuserFiles});
     this.files = this.filesQuery.valueChanges.pipe(
       map(({data})=> {
+        console.log(data)
         this.userId = data.userFiles[0].id
         return data.userFiles
       })

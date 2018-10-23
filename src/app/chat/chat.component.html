@@ -5,8 +5,8 @@
         <div class="msg_content" [style.flexDirection]="msg.sender.id == userId ? ' ' : 'row-reverse'">
           <div [ngClass]="{'msg_info': msg.sender.id == userId, 'msg_info_guest': msg.sender.id !== userId}">
             <div class="avatar">
-               <img class="user_img" *ngIf="msg.sender.id == userId" src="src/assets/img/user.svg" alt="user">
-               <img *ngIf="msg.sender.id !== userId" src="src/assets/img/guest.svg" alt="user">
+               <img class="user_img" *ngIf="msg.sender.id == userId" src="/assets/img/user.svg" alt="user">
+               <img *ngIf="msg.sender.id !== userId" src="/assets/img/guest.svg" alt="user">
             </div>
             <p
               [ngClass]="msg.sender.id == userId ? 'msg_title' : 'msg_title_alien'"
@@ -25,7 +25,7 @@
   </div>
   <div class="input_text">
     <div *ngIf="fileMessage" class="file_modal">
-      <img src="src/assets/img/add_file.svg" alt="">
+      <img src="/assets/img/add_file.svg" alt="">
     </div>
     <div class="download_file">
       <input class="file-input" type="file" id="file" (change)="startUpload($event)">

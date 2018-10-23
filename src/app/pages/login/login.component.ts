@@ -35,10 +35,11 @@ export class LoginComponent implements OnInit {
     const password = this.password.value;
     console.log()
     this.auth.LoginStart(email, password)
-    .subscribe(({data: {signIn: {ok, token, errors, user}}}) => {
+    .subscribe(({data: {signIn: {ok, token, errors, user, refreshToken}}}) => {
       if (ok) {
         console.log(ok, token, user)
         localStorage.setItem('x-token', token);
+        localStorage.setItem('x-refresh-token', refreshToken);
         this.auth.setUserId(user.id);
         this.router.navigate([`home/files/${user.id}`]);
       }
