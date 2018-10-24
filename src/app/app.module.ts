@@ -40,8 +40,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {DialogContentExample, DialogContentExampleDialog} from './navbar/modals/modal.add_directuser';
 import {RenderTextComponent} from './uploads/file-list/render-text/render-text.component';
 import {ImageFileComponent} from './chat/image-file/image-file.component';
-
-
+import {FileModalComponent} from './chat/file-modal/file-modal.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
+// import {BootstrapModule} from './bootstrap.module';
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from './services/auth/auth.service';
 import { GraphQLModule } from './graphql.module';
@@ -84,7 +88,9 @@ export const config = {
     DialogContentExample,
     DialogContentExampleDialog,
     RenderTextComponent,
-    ImageFileComponent
+    ImageFileComponent,
+    FileModalComponent,
+    
     
     
   ],
@@ -100,6 +106,7 @@ export const config = {
       maxAge: 5
     }),
     BrowserAnimationsModule,
+    NgbModule,
     MatInputModule,
     MatDialogModule,
     MatButtonModule,
@@ -108,6 +115,8 @@ export const config = {
     MatSlideToggleModule,
     MatIconModule,
     MatMenuModule,
+    MatTooltipModule,
+    MatSelectModule,
     MatFormFieldModule,
     GraphQLModule,
     AngularFireModule.initializeApp(config),

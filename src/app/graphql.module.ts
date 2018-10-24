@@ -13,7 +13,7 @@ import { createUploadLink } from 'apollo-upload-client';
 
 
 const uri = 'http://localhost:8000/graphql'; // <-- add the URL of the GraphQL server here
-const ws = new SubscriptionClient(`ws://localhost:8000/subscriptions`,{
+const ws = new SubscriptionClient(`ws://localhost:8000/graphql`,{
   reconnect: true,
   connectionParams: () => ({
     token: localStorage.getItem('x-token') || null,
@@ -34,21 +34,21 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
   return forward(operation);
 })
-const afterwareLink = new ApolloLink((operation, forward) =>
-  forward(operation).map((response) => {
-    const { response: { headers } } = operation.getContext();
-    console.log(operation.getContext());
-    console.log('AFTERWARE', headers);
-    if (headers) {
-      const token = headers.get('x-token');
+// const afterwareLink = new ApolloLink((operation, forward) =>
+//   forward(operation).map((response) => {
+//     const { response: { headers } } = operation.getContext();
+//     console.log(operation.getContext());
+//     console.log('AFTERWARE', headers);
+//     if (headers) {
+//       const token = headers.get('x-token');
 
-      if (token) {
-        localStorage.setItem('token', token);
-      }
-    }
+//       if (token) {
+//         localStorage.setItem('token', token);
+//       }
+//     }
 
-    return response;
-  }));
+//     return response;
+//   }));
 
 
 // const auth = setContext((_, data) => {
@@ -69,7 +69,7 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 
 export function createApollo() {
   const http = createUploadLink({uri});
-  const httpMA = afterwareLink.concat(authMiddleware.concat(http))
+  // const httpMA = afterwareLink.concat(authMiddleware.concat(http))
   const wsClient = new WebSocketLink(ws);
   const link = split(
     // split based on operation type
@@ -78,10 +78,10 @@ export function createApollo() {
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsClient,
-    httpMA,
+    http,
   ); 
   return {
-    link,
+    link: from([authMiddleware, link]),
     cache: new InMemoryCache(),
   };
 }

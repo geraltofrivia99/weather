@@ -1,4 +1,10 @@
-<div class="wrapper">
+<div
+  class="wrapper"
+  dropZone
+  (hovered)="toggleHover($event)"
+  (dropped)="startUpload($event)"
+  [class.hovering]="isHovering"
+>
   <div #scrollContainer class="container_message scroll">
     <div class="cont">
       <div *ngFor="let msg of data | async" class="msg" [style.justifyContent]="msg.sender.id == userId ? 'flex-start' : 'flex-end'">
@@ -28,10 +34,8 @@
       <img src="/assets/img/add_file.svg" alt="">
     </div>
     <div class="download_file">
-      <input class="file-input" type="file" id="file" (change)="startUpload($event)">
-      <label for="file">
-          <svg width="48" height="30px" width="30px" viewBox="0 0 48 48"><path d="M26 14h-4v8h-8v4h8v8h4v-8h8v-4h-8v-8zM24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z"/></svg>
-      </label>
+      <!-- <input class="file-input" type="file" id="file" (change)="startUpload($event)"> -->
+      <app-file-modal></app-file-modal>
     </div>
     <form class="example-form" (submit)="onClickk($event)">
       <input class="example-full-width" type="text" placeholder="Type you message" [formControl]="message">

@@ -64,6 +64,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   reciverId;
   data: Observable<any>;
   dataQuery: QueryRef<any>;
+  isHovering: boolean;
   message = new FormControl({value:'', disabled: false});
   @ViewChild('scrollContainer') private myScrollContainer: ElementRef;
 
@@ -91,11 +92,16 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     console.log('Init chat')
     
   }
-  startUpload(event) {
-    console.log(event.target.files);
-    this.fileMessage = event.target.files.item(0);
-    // this.localUrl = this.sanitizer.bypassSecurityTrustUrl(event.srcElement.value);
+  toggleHover(event: boolean) {
     
+    this.isHovering = event;
+  }
+  startUpload(event) {
+    console.log(event.item(0));
+    this.fileMessage = event.item(0);
+
+    // this.fileMessage = event.target.files.item(0);
+    // this.localUrl = this.sanitizer.bypassSecurityTrustUrl(event.srcElement.value);
   }
   ngAfterViewChecked() {        
     this.scrollToBottom();        
@@ -156,6 +162,7 @@ subscribeToNewMessages() {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) { }                 
 }
+
 ngOnDestroy() {
   if (this.navigationSubscription) {  
     this.navigationSubscription.unsubscribe();
