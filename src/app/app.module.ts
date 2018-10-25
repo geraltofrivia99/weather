@@ -43,9 +43,11 @@ import {ImageFileComponent} from './chat/image-file/image-file.component';
 import {FileModalComponent} from './chat/file-modal/file-modal.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 // import {BootstrapModule} from './bootstrap.module';
 // import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {FileService} from './services/files/file.service';
 
 import { AuthService } from './services/auth/auth.service';
 import { GraphQLModule } from './graphql.module';
@@ -114,6 +116,7 @@ export const config = {
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatRadioModule,
     MatMenuModule,
     MatTooltipModule,
     MatSelectModule,
@@ -128,7 +131,8 @@ export const config = {
     WeatherService,
     UiService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    FileService
   ],
   bootstrap: [AppComponent]
 })

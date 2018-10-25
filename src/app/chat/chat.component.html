@@ -30,8 +30,8 @@
     </div>
   </div>
   <div class="input_text">
-    <div *ngIf="fileMessage" class="file_modal">
-      <img src="/assets/img/add_file.svg" alt="">
+    <div *ngIf="choosenFile" class="file_modal">
+      <img [src]="choosenFile" alt="">
     </div>
     <div class="download_file">
       <!-- <input class="file-input" type="file" id="file" (change)="startUpload($event)"> -->

@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, AfterViewChecked, OnDestroy } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {map, switchMap} from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Apollo, QueryRef } from 'apollo-angular';
+import { Observable, Subscriber } from 'rxjs';
+import { Apollo, QueryRef, Subscription } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {FormControl, Validators} from '@angular/forms';
 import {Router, ActivatedRoute, NavigationEnd} from '@angular/router';
+import {FileService} from '../services/files/file.service';
 // import {SubscriptionService} from '../../subscription.service';
 
 
@@ -57,7 +58,6 @@ subscription newDirectMessage($userId: Int!) {
 })
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   navigationSubscription;
-
   localUrl;
   fileMessage: File;
   userId;
@@ -66,9 +66,12 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   dataQuery: QueryRef<any>;
   isHovering: boolean;
   message = new FormControl({value:'', disabled: false});
+  choosenFileSubscriber;
+  dataSubscription$;
+  choosenFile: string;
   @ViewChild('scrollContainer') private myScrollContainer: ElementRef;
 
-  constructor(private apollo: Apollo, private cdr: ChangeDetectorRef, private route: ActivatedRoute, private router: Router, private sanitizer:DomSanitizer) { 
+  constructor(private apollo: Apollo, private cdr: ChangeDetectorRef, private route: ActivatedRoute, private router: Router, private fs: FileService) { 
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         this.initialiseInvites();
@@ -117,8 +120,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       }
     })
   this.data = this.dataQuery.valueChanges.pipe(map(({data}) => data.directMessages));
-  this.data.subscribe(() => this.cdr.markForCheck());
+  this.dataSubscription$ = this.data.subscribe(() => this.cdr.markForCheck());
   this.subscribeToNewMessages();
+  this.choosenFileSubscriber = this.fs.getFile().subscribe((url) => this.choosenFile = url);
 }
 subscribeToNewMessages() {
   this.dataQuery.subscribeToMore({
@@ -130,8 +134,6 @@ subscribeToNewMessages() {
       if (!subscriptionData) {
         return prev;
       }
-      console.log(prev);
-      console.log(subscriptionData)
       return {
         ...prev,
         directMessages: [
@@ -167,5 +169,7 @@ ngOnDestroy() {
   if (this.navigationSubscription) {  
     this.navigationSubscription.unsubscribe();
  }
+  this.choosenFileSubscriber.unsubscribe();
+  this.dataSubscription$.unsubscribe();
 }
 }

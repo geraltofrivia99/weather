@@ -1,9 +1,9 @@
 <div class="dropdown">
     <div class="dropdown-content">
        <ul>
-          <li href="#" (click)="openVerticallyCentered(content)"><i class="far fa-images"></i></li>
-          <li href="#"><i class="fas fa-music"></i></li>
-          <li href="#"><i class="far fa-file-alt"></i></li>
+          <li (click)="openVerticallyCentered(photos)"><i class="far fa-images"></i></li>
+          <li (click)="openVerticallyCentered(Music)"><i class="fas fa-music"></i></li>
+          <li (click)="openVerticallyCentered(Documents)"><i class="far fa-file-alt"></i></li>
        </ul>
       </div>
   <span class="dropbtn">
@@ -11,15 +11,57 @@
   </span>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #photos let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">Modal title</h4>
+      <h4 class="modal-title">Photos</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="images_modal_body">
+      <div class="image_item" *ngFor="let image of images"><img [src]="image.url" alt="">
+        <span>
+          <mat-radio-group class="example-radio-group" [(ngModel)]="choosenFile">
+            <mat-radio-button class="example-radio-button" [value]="image.url">
+            </mat-radio-button>
+          </mat-radio-group>
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Save click')">Add Image</button>
+    </div>
+  </ng-template>
+
+  <ng-template #Music let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Music</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p>One fine body&hellip;</p>
+      <div class="music_item" *ngFor="let music of musics">
+        <span>{{music.filename}}</span>
+        <audio controls>
+          <source src="{{music.url}}" type="{{music.type}}" />
+        </audio>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #Documents let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title"></h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p *ngFor="let doc of documents">{{doc.filename}}</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
