@@ -35,7 +35,7 @@ export class FileModalComponent implements OnInit, OnDestroy {
   images:Array<object> = [];
   musics:Array<object> = [];
   documents:Array<object> = [];
-  choosenFile: string;
+  choosenFile: object;
 
   constructor(private apollo: Apollo, private modalService: NgbModal, private fs: FileService) { }
 

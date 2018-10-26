@@ -23,13 +23,17 @@ query getDirectMessages($otherUserId: Int!) {
     }
     url
     filetype
+    fileUT {
+      url
+      type
+    }
   }
 }
 `;
 
 const addNewDirMessage = gql`
-  mutation createDirectMessage($receiverId:Int!, $text: String!, $file: Upload) {
-    createDirectMessage(receiverId: $receiverId, text: $text, file: $file) 
+  mutation createDirectMessage($receiverId:Int!, $text: String, $file: Upload, $fileUT: SFile) {
+    createDirectMessage(receiverId: $receiverId, text: $text, file: $file, fileUT: $fileUT) 
   }
 `;
 
@@ -46,6 +50,10 @@ subscription newDirectMessage($userId: Int!) {
     }
     url
     filetype
+    fileUT {
+      url
+      type
+    }
   }
 }
 `;
@@ -68,7 +76,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   message = new FormControl({value:'', disabled: false});
   choosenFileSubscriber;
   dataSubscription$;
-  choosenFile: string;
+  choosenFile: object;
   @ViewChild('scrollContainer') private myScrollContainer: ElementRef;
 
   constructor(private apollo: Apollo, private cdr: ChangeDetectorRef, private route: ActivatedRoute, private router: Router, private fs: FileService) { 
@@ -99,12 +107,16 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     
     this.isHovering = event;
   }
-  startUpload(event) {
-    console.log(event.item(0));
-    this.fileMessage = event.item(0);
-
-    // this.fileMessage = event.target.files.item(0);
-    // this.localUrl = this.sanitizer.bypassSecurityTrustUrl(event.srcElement.value);
+  async startUpload(event) {
+    this.fileMessage = await event.item(0);
+      this.apollo.mutate<any>({
+        mutation: addNewDirMessage,
+        variables: {
+          receiverId: +this.reciverId,
+          file: this.fileMessage || null,
+        },
+      }).subscribe()
+    this.fileMessage = null;
   }
   ngAfterViewChecked() {        
     this.scrollToBottom();        
@@ -122,7 +134,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   this.data = this.dataQuery.valueChanges.pipe(map(({data}) => data.directMessages));
   this.dataSubscription$ = this.data.subscribe(() => this.cdr.markForCheck());
   this.subscribeToNewMessages();
-  this.choosenFileSubscriber = this.fs.getFile().subscribe((url) => this.choosenFile = url);
+  this.choosenFileSubscriber = this.fs.getFile().subscribe((file: any) => this.choosenFile = {url: file.url, type: file.type});
 }
 subscribeToNewMessages() {
   this.dataQuery.subscribeToMore({
@@ -134,6 +146,8 @@ subscribeToNewMessages() {
       if (!subscriptionData) {
         return prev;
       }
+      console.log(prev)
+      console.log(subscriptionData)
       return {
         ...prev,
         directMessages: [
@@ -146,18 +160,21 @@ subscribeToNewMessages() {
  
   onClickk(e) {
     e.preventDefault();
-    console.log(this.message.value, this.reciverId, this.fileMessage);
+    
+    console.log(this.choosenFile);
     this.apollo.mutate<any>({
       mutation: addNewDirMessage,
       variables: {
         text: this.message.value,
         receiverId: +this.reciverId,
-        file: this.fileMessage || null
+        file: this.fileMessage || null,
+        fileUT: this.choosenFile,
       },
     }).subscribe()
     
     this.message.setValue('');
     this.fileMessage = null;
+    this.choosenFile = null;
   }
   scrollToBottom(): void {
     try {

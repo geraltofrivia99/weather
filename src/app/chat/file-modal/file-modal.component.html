@@ -22,7 +22,7 @@
       <div class="image_item" *ngFor="let image of images"><img [src]="image.url" alt="">
         <span>
           <mat-radio-group class="example-radio-group" [(ngModel)]="choosenFile">
-            <mat-radio-button class="example-radio-button" [value]="image.url">
+            <mat-radio-button class="example-radio-button" [value]="image">
             </mat-radio-button>
           </mat-radio-group>
         </span>

@@ -6,11 +6,11 @@ import {Subject} from 'rxjs';
 })
 export class FileService {
   
-  private _file: Subject<string> = new Subject<string>();
+  private _file: Subject<object> = new Subject<object>();
 
   constructor() { }
 
-  setChoosenFile(file: string) {
+  setChoosenFile(file: object) {
     this._file.next(file);
   }
   getFile() {

@@ -24,6 +24,10 @@
               <img [src]="msg.url" alt="image">
               <br>
             </div>
+            <div *ngIf="msg.fileUT" class="file_in_message">
+              <img [src]="msg.fileUT.url" alt="image">
+              <br>
+            </div>
             <p>{{msg.text}}</p></div>
         </div>
       </div>
@@ -31,7 +35,7 @@
   </div>
   <div class="input_text">
     <div *ngIf="choosenFile" class="file_modal">
-      <img [src]="choosenFile" alt="">
+      <img [src]="choosenFile.url" alt="">
     </div>
     <div class="download_file">
       <!-- <input class="file-input" type="file" id="file" (change)="startUpload($event)"> -->
