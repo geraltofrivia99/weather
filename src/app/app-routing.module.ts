@@ -15,6 +15,7 @@ const routes: Routes = [
   {
   path: '',
   component: MainPageComponent,
+  canActivate: [AuthGuard], 
   children: [
     { path: '', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
@@ -32,15 +33,16 @@ const routes: Routes = [
       {
         path: 'files/:id',
         component: FileListComponent,
-        
+        data: { animation: 'heroes' }
       },
-      {path: 'chat/:id', component: ChatComponent},
+      {path: 'chat/:id', component: ChatComponent, data: { animation: 'hero' }},
     ]
   },
   {path: 'details/:city', component: DetailsComponent},
   {path: 'add', component: AddComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
+  { path: '**', component: MainPageComponent },
   // {path: 'chat/:id', component: ChatComponent},
 ];
 

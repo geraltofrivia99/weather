@@ -7,16 +7,17 @@ import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage'
 import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-const createFile = gql`
-  mutation createFile($url: String!, $userId: Int!, $type: String!, $name: String!) {
-    createFile(url: $url, userId: $userId, type: $type, name: $name) {
-      id
-      createdAt
-      url
-      type
-    }
-  }
-`;
+
+// const createFile = gql`
+//   mutation createFile($url: String!, $userId: Int!, $type: String!, $name: String!) {
+//     createFile(url: $url, userId: $userId, type: $type, name: $name) {
+//       id
+//       createdAt
+//       url
+//       type
+//     }
+//   }
+// `;
 
 const getuserFiles = gql`
   query userFiles {

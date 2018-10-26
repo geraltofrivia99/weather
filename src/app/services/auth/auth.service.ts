@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import gql from 'graphql-tag';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 interface myData {
   success: boolean,
@@ -59,14 +60,15 @@ const getuserFiles = gql`
 export class AuthService {
   // private _isAuthenticated = new BehaviorSubject<boolean>(false);
   private _isAuthenticated: boolean = false;
-  token;
+  private JwtHelper = new JwtHelperService;
+  // token;
   private userId: string = null;
   constructor(private http: HttpClient, private apollo: Apollo, private route: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router) { }
 
-  get isAuthenticated(): boolean {
-    return this._isAuthenticated;
-  }
+  // get isAuthenticated(): boolean {
+  //   return this._isAuthenticated;
+  // }
   
   // saveUserData(id: string, token: string) {
 
@@ -90,14 +92,20 @@ export class AuthService {
       },
     })
   }
-  isAuth() {
-    const id = localStorage.getItem('userId');
-    return this.apollo.watchQuery<any>({
-      query: getUser,
-      variables: {
-        id: id
-      }
-    })
+  // isAuth() {
+  //   const id = localStorage.getItem('userId');
+  //   return this.apollo.watchQuery<any>({
+  //     query: getUser,
+  //     variables: {
+  //       id: id
+  //     }
+  //   })
+  // }
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('x-token');
+    // Check whether the token is expired and return
+    // true or false
+    return !this.JwtHelper.isTokenExpired(token);
   }
 
   registerUser(user) {
