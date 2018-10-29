@@ -26,13 +26,14 @@
 .user_avatar {
   margin-bottom: 3rem;
 }
-.user_avatar .img {
-  width: 50px;
-  height: 50px;
-  border: 1px solid #fff;
-  border-radius: 50%;
+.user_avatar {
   background-color: #fff;
+  border-radius: 50%;
   margin: .5rem 0 .5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 .files_list {
   padding: .5rem;
@@ -52,6 +53,14 @@
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
+  background-color: inherit;
+  border: none;
+  outline: none !important;
+  cursor: pointer;
+}
+.menu_control_btn img {
+  width: 30px;
+  height: 30px;
 }
 .add_chat {
   color: #000;
@@ -72,4 +81,7 @@
   color: gray;
   padding: .5em 0 .5em 0;
   cursor: pointer;
+}
+.user_name {
+  margin-bottom: 3rem;
 }

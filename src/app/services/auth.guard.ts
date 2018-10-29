@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
   }
   isAuth(): boolean {
     if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/home/files/2']);
+      this.router.navigate(['/home/files']);
       return false;
     }
     

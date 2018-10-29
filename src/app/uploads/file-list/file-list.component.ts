@@ -27,17 +27,23 @@ const getuserFiles = gql`
       type
       filename
       createdAt
+      size
       user {
         id
       }
     }
   }
 `;
-export const UPLOAD_FILE = gql`
-  mutation singleUpload($file: Upload!) {
-    singleUpload(file: $file) {
+const UPLOAD_FILE = gql`
+  mutation singleUpload($file: Upload!, $size: Int!) {
+    singleUpload(file: $file, size: $size) {
       filename
     }
+  }
+`;
+const DELETE_FILE = gql`
+  mutation deleteFile($id: ID!) {
+    deleteFile(id: $id)
   }
 `;
 
@@ -94,7 +100,8 @@ export class FileListComponent implements OnInit {
     this.apollo.mutate<any>({
       mutation: UPLOAD_FILE,
       variables: {
-        file
+        file,
+        size: file.size
       },
       refetchQueries: [{
         query: getuserFiles,
@@ -112,8 +119,16 @@ export class FileListComponent implements OnInit {
       return 'audio'
     }
   }
-  RenderText(url) {
-    console.log(url)
+  removeFile(id) {
+    this.apollo.mutate<any>({
+      mutation: DELETE_FILE,
+      variables: {
+        id
+      },
+      refetchQueries: [{
+        query: getuserFiles,
+      }],
+    }).subscribe((data) => console.log(data))
   }
   isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes

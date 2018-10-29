@@ -28,12 +28,13 @@
   -moz-box-shadow: 0px 0px 5px 1px rgba(33,33,33,.5);
   box-shadow: 0px 0px 5px 1px rgba(33,33,33,.5);
   transition: all .5s;
+  margin: 0 1rem;
 }
 .container_message {
   position: relative;
   overflow: auto;
   flex-grow: 2;
-  
+  max-height: 93%;
 }
 .cont {
   padding: 0 100px 0 100px;

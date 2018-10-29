@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('x-token', token);
         localStorage.setItem('x-refresh-token', refreshToken);
         this.auth.setUserId(user.id);
-        this.router.navigate([`home/files/${user.id}`]);
+        this.router.navigate([`home/files`]);
       }
       else {
         console.log(errors)

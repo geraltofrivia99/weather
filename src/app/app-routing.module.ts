@@ -31,7 +31,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'files/:id',
+        path: 'files',
         component: FileListComponent,
         data: { animation: 'heroes' }
       },

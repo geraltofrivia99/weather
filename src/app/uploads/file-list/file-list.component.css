@@ -1,6 +1,7 @@
 .file_list_wrapper {
   min-height: 100vh;
   min-width: 100vw;
+  overflow: hidden;
 }
 .file_list_container {
 
@@ -9,20 +10,22 @@
   list-style-type: none;
 }
 .content_wrapper {
-  display: flex;
-  justify-content: flex-start;
+  overflow: auto;
+  max-height: 800px;
 }
 .file_list {
-  min-width: 300px;
-
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .file_list h1 {
   color: #dadada;
-  opacity: .8;
+  opacity: .6;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50% -50%);
+  z-index: -1;
 }
 /* .file-icon {
   width: 150px;
@@ -35,9 +38,48 @@
 }
 .file {
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  margin: 1rem;
+  width: 300px;
+  -webkit-box-shadow: 5px 4px 8px -1px #e0e0e0;
+  -moz-box-shadow: 5px 4px 8px -1px #e0e0e0;
+  box-shadow: 5px 4px 8px -1px #e0e0e0;
+  border-radius: 10px;
+}
+.file_content {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+.file p {
+  margin: 0;
+  padding: 0;
+  margin-left: 1rem;
+}
+.file_time {
+  color: #bdbdbd;
+  font-size: .8em;
+}
+.file_footer {
+  width: 100%;
+  padding: 0 1rem;
+}
+.footer_container {
+  
+}
+.footer_container p{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer_container a {
+  text-decoration: none;
+  color: #0091ea;
+}
+.footer_container a:hover {
+  color: #01579b;
 }
 .add_field {
   display: flex;
@@ -63,8 +105,31 @@
 progress::-webkit-progress-value {
   transition: width 0.1s ease;
 }
-.type_image img {
-  width: 50px;
-  height: 50px;
-  float: left;
+.type_image {
+  width: 100%;
+  border-radius: 10px 10px 5px 5px;
+  height: 200px;
+  object-fit: cover;
+  background-color: #fff;
+}
+.file_page_title {
+  width: 100%;
+  padding-left: 1rem;
+  color: #dadada;
+}
+.file_size {
+  position: absolute;
+  top: -1.5rem;
+  right: 1rem;
+  color: #e0e0e0;
+  font-size: .8em;
+  z-index: 100;
+  cursor: pointer;
+}
+.file_size i {
+  transition: all .5s;
+}
+.file_size:hover i {
+  color: #000;
+  font-size: 1.1em;
 }

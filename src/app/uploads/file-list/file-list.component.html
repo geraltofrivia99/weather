@@ -5,24 +5,23 @@ dropZone
 [class.hovering]="isHovering"
 >
   <div class="container">
-    <div class="content_wrapper">
+    <div class="content_wrapper scroll">
+      <h3 class="file_page_title">Files</h3>
       <div class="file_list">
         <h1>Transfer you files</h1>
-        <mat-list>
-          <h3 mat-subheader>Files</h3>
-          <mat-list-item *ngFor="let file of files | async">
-            <span class="type_image" *ngIf="checkedType(file.type) === 'image'"><img src="{{file.url}}" alt="image"></span>
-            <span class="type_image" *ngIf="checkedType(file.type) === 'audio'">
-              <audio controls>
-                <source src="{{file.url}}" type="{{file.type}}" />
-              </audio>
-            </span>
-            <span class="type_image" *ngIf="checkedType(file.type) === 'text'"><app-render-text [url]="file.url"></app-render-text></span>
-            <p mat-line><a [href]="file.url" target="_blank" rel="noopener" download="file.url">{{file.filename}}</a></p>
-            <p mat-line> {{file.createdAt | date: 'mm:ss'}} </p>
-          </mat-list-item>
-        </mat-list>
-        
+        <div class="file" *ngFor="let file of files | async">
+          <div class="file_content">
+            <span class="file_size"><i class="far fa-trash-alt" (click)="removeFile(file.id)"></i> {{file.size | fileSize}}</span>
+            <img [src]="file.url" alt="image" class="type_image" *ngIf="checkedType(file.type) === 'image'">
+            <app-audio *ngIf="checkedType(file.type) === 'audio'" [url]="file.url" [type]="file.type" [name]="file.filename"></app-audio>
+            <app-render-text [url]="file.url" *ngIf="checkedType(file.type) === 'text'"></app-render-text>
+          </div>
+          <div class="file_footer">
+            <div class="footer_container">
+              <p><a [href]="file.url" target="_blank" rel="noopener" download="file.url">{{file.filename}}</a> <span class="file_time"> {{file.createdAt | date: 'shortDate'}} </span></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

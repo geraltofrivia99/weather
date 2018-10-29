@@ -23,31 +23,19 @@ import {LoginComponent} from './pages/login/login.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {UiService} from './services/ui/ui.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import {ChatComponent} from './chat/chat.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
 import {MainPageComponent} from './pages/main-page/main-page.component';
 import {NavbarComponent} from './navbar/navbar.component';
-import {MatDialogModule} from '@angular/material/dialog';
 import {DialogContentExample, DialogContentExampleDialog} from './navbar/modals/modal.add_directuser';
 import {RenderTextComponent} from './uploads/file-list/render-text/render-text.component';
 import {ImageFileComponent} from './chat/image-file/image-file.component';
 import {FileModalComponent} from './chat/file-modal/file-modal.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-import {MatRadioModule} from '@angular/material/radio';
-// import {BootstrapModule} from './bootstrap.module';
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FileService} from './services/files/file.service';
+import {AudioComponent} from './ui/audio/audio.component';
 
 
 import { AuthService } from './services/auth/auth.service';
@@ -59,6 +47,9 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { DropZoneDirective } from './uploads/drop-zone.directive';
 import {FileSizePipe} from './uploads/file-size.pipe';
+
+import {MaterialModule} from './material/material.module';
+
 
 export const config = {
   apiKey: "AIzaSyCPnJ7Uwq1d13lAdD3gxuj37gCcGPpEWQA",
@@ -87,13 +78,13 @@ export const config = {
     FileSizePipe,
     FileListComponent,
     MainPageComponent,
-    NavbarComponent,
     DialogContentExample,
     DialogContentExampleDialog,
     RenderTextComponent,
     ImageFileComponent,
     FileModalComponent,
-    
+    AudioComponent,
+    NavbarComponent
     
     
   ],
@@ -109,19 +100,8 @@ export const config = {
       maxAge: 5
     }),
     BrowserAnimationsModule,
+    MaterialModule,
     NgbModule,
-    MatInputModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatListModule,
-    MatAutocompleteModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatRadioModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatSelectModule,
-    MatFormFieldModule,
     GraphQLModule,
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
