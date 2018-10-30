@@ -32,7 +32,7 @@ import {DialogContentExample, DialogContentExampleDialog} from './navbar/modals/
 import {RenderTextComponent} from './uploads/file-list/render-text/render-text.component';
 import {ImageFileComponent} from './chat/image-file/image-file.component';
 import {FileModalComponent} from './chat/file-modal/file-modal.component';
-
+import { ProfileComponent } from './pages/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FileService} from './services/files/file.service';
 import {AudioComponent} from './ui/audio/audio.component';
@@ -47,10 +47,11 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { DropZoneDirective } from './uploads/drop-zone.directive';
 import {FileSizePipe} from './uploads/file-size.pipe';
-import {SortableDirective} from './uploads/sortable.directive';
+import {GraphqlService} from './services/graphql/graphql.service';
 
 import {MaterialModule} from './material/material.module';
-
+// import { DraggableModule } from './draggable/draggable.module';
+import {DndModule} from '@beyerleinf/ngx-dnd';
 
 export const config = {
   apiKey: "AIzaSyCPnJ7Uwq1d13lAdD3gxuj37gCcGPpEWQA",
@@ -86,7 +87,7 @@ export const config = {
     FileModalComponent,
     AudioComponent,
     NavbarComponent,
-    SortableDirective
+    ProfileComponent
     
   ],
   imports: [
@@ -106,7 +107,9 @@ export const config = {
     GraphQLModule,
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    DndModule.forRoot(),
+    // DraggableModule
   ],
   entryComponents: [DialogContentExample, DialogContentExampleDialog],
   providers: [
@@ -114,7 +117,8 @@ export const config = {
     UiService,
     AuthService,
     AuthGuard,
-    FileService
+    FileService,
+    GraphqlService
   ],
   bootstrap: [AppComponent]
 })

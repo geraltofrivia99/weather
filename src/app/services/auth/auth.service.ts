@@ -28,14 +28,7 @@ const LoggedIn = gql`
     }
   }
 `;
-const getUser = gql`
-  query getUser($id: ID!) {
-    user(id: $id) {
-      id
-      username
-    }
-  }
-`;
+
 const getUsers = gql`
   query getUsers {
     users {

@@ -97,19 +97,24 @@ export class FileListComponent implements OnInit {
     const file = event.item(0);
     
     console.log(event.item(0))
-    this.apollo.mutate<any>({
-      mutation: UPLOAD_FILE,
-      variables: {
-        file,
-        size: file.size
-      },
-      refetchQueries: [{
-        query: getuserFiles,
-      }],
-    }).subscribe((data) => console.log(data))
+    if (file) {
+      this.apollo.mutate<any>({
+        mutation: UPLOAD_FILE,
+        variables: {
+          file,
+          size: file.size
+        },
+        refetchQueries: [{
+          query: getuserFiles,
+        }],
+      }).subscribe((data) => console.log(data))
+    }
   }
   checkedType(type) {
     if (type.indexOf('image/') > -1) {
+      if (type.indexOf('/png') > -1 || type.indexOf('/svg') > -1) {
+        return 'svg&&png'
+      }
       return 'image'
     }
     if (type.indexOf('text/') > -1) {
@@ -130,9 +135,10 @@ export class FileListComponent implements OnInit {
       }],
     }).subscribe((data) => console.log(data))
   }
-  isActive(snapshot) {
-    return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
-  }
+  transferDataSuccess($event: any) {
+    console.log($event);
+    this.removeFile($event.dragData.id);
+}
 }
  // update: (store, { data: { createFile } }) => {
               

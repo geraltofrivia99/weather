@@ -7,12 +7,19 @@ dropZone
   <div class="container">
     <div class="content_wrapper scroll">
       <h3 class="file_page_title">Files</h3>
+      <div class="trash"
+      dnd-droppable
+      (onDropSuccess)="transferDataSuccess($event)"
+      >
+        <img src="/assets/img/trash.svg" alt="">
+      </div>
       <div class="file_list">
         <h1>Transfer you files</h1>
-        <div class="file" *ngFor="let file of files | async">
+        <div class="file" *ngFor="let file of files | async" dnd-draggable [dragEnabled]="true" [dragData]="file">
           <div class="file_content">
             <span class="file_size"><i class="far fa-trash-alt" (click)="removeFile(file.id)"></i> {{file.size | fileSize}}</span>
             <img [src]="file.url" alt="image" class="type_image" *ngIf="checkedType(file.type) === 'image'">
+            <img [src]="file.url" alt="image" class="type_svg_or_png" *ngIf="checkedType(file.type) === 'svg&&png'">
             <app-audio *ngIf="checkedType(file.type) === 'audio'" [url]="file.url" [type]="file.type" [name]="file.filename"></app-audio>
             <app-render-text [url]="file.url" *ngIf="checkedType(file.type) === 'text'"></app-render-text>
           </div>

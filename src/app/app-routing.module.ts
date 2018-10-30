@@ -10,6 +10,7 @@ import {AuthGuard} from './services/auth.guard';
 import {MainPageComponent} from './pages/main-page/main-page.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
+import {ProfileComponent} from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     children: [
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { animation: 'hero' }
+      },
       {
         path: 'files',
         component: FileListComponent,

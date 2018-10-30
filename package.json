@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
     "@auth0/angular-jwt": "^2.0.0",
+    "@beyerleinf/ngx-dnd": "^6.0.0-preview3",
     "@ng-bootstrap/ng-bootstrap": "^3.3.1",
     "@ngrx/effects": "^6.1.0",
     "@ngrx/store": "^6.1.0",

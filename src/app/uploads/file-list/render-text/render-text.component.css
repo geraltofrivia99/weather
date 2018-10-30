@@ -1,9 +1,7 @@
 .file_wrapper {
-  width: 100%;
-  height: 100%;
   border-radius: 10px 5px;
   color: #ffd54f;
-  padding: .5rem;
+  padding: 0.4rem;
   border: 1px dashed #ffd54f;
   background-color: #fff;
   position: relative;

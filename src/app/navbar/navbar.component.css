@@ -85,3 +85,26 @@
 .user_name {
   margin-bottom: 3rem;
 }
+.direct_messages {
+  width: 100%;
+  padding: 0 .7rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+.direct_messages h4 {
+  border-bottom: 1px dashed #fff;
+  font-size: 1.3em;
+}
+.direct_messages ul {
+  margin-top: 1rem;
+}
+.direct_messages ul > li {
+  width: 100%;
+  padding: .3rem;
+}
+.direct_messages ul > li > a{
+  color: #fff;
+  text-decoration: none;
+}

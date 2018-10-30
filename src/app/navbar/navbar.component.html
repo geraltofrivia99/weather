@@ -1,10 +1,12 @@
 <div class="side_wrapp" [ngClass]="{'side_wrapp_open': sideMenuShow}">
   <div class="side_container">
     <div class="user_avatar">
-       <img src="/assets/img/man.png" alt="avatar">
+       <a routerLink="/home/profile">
+        <img src="/assets/img/man.png" alt="avatar">
+       </a>
       <!-- <div class="user_name">Nikita</div> -->
     </div>
-    <div class="user_name">Ddavids</div>
+    <div class="user_name">{{user.username}}</div>
     <div class="files_list">
      <a routerLink="/home/files" routerLinkActive="active">
         <svg x="0px" y="0px" viewBox="0 0 59.911 59.911" style="enable-background:new 0 0 59.911 59.911;" xml:space="preserve" width="50px" height="50px">
@@ -21,6 +23,13 @@
     <div class="direct_list">
       <adddialog-component></adddialog-component>
     </div>
+    <div class="direct_messages">
+      <h4>Messages</h4>
+      <ul>
+        <li *ngFor="let duser of user.directMessageMembers"><a [routerLink]="['/home/chat', duser.id]">{{duser.username}}</a></li>
+      </ul>
+    </div>
+    
     <button class="menu_control_btn" (click)="openSideMenu()">
        <img src="/assets/img/expand-arrows.svg" alt="">
     </button>

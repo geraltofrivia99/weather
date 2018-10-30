@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {Router} from '@angular/router';
+import {FormArray, FormControl} from '@angular/forms';
 
 
 
@@ -13,12 +14,16 @@ import {Router} from '@angular/router';
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit{
-  sortableList: Number[] = [1,2,3,4,5,6]
+  
   constructor() { }
 
   ngOnInit () {
     
   }
- 
+  transferData: Object = {id: 1, msg: 'Hello'};
+    receivedData: Array<any> = [];
 
+    transferDataSuccess($event: any) {
+        this.receivedData.push($event);
+    }
 }
