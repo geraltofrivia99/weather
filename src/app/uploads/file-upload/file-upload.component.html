@@ -1,4 +1,4 @@
-<div class="dropzone" 
+<!-- <div class="dropzone" 
      dropZone
      (hovered)="toggleHover($event)"
      (dropped)="startUpload($event)"
@@ -13,7 +13,7 @@
         <a mat-raised-button [routerLink]="['/files', userId]">Go to file list</a>
         <label class="file-label">
 
-        <!-- <input class="file-input" type="file" (change)="startUpload($event.target.files)"> -->
+     
           <span class="file-cta">
             <span class="file-icon">
               <i class="fa fa-upload"></i>
@@ -49,4 +49,9 @@
   <button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">Pause</button>
   <button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">Cancel</button>
   <button (click)="task.resume()" class="button is-info"   [disabled]="!(snap?.state === 'paused')">Resume</button>
-</div>
+</div> -->
+<section >
+  <ul appSortable>
+    <li *ngFor="let box of sortableList">{{box}}</li>
+  </ul>
+</section>

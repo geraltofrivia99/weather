@@ -9,7 +9,7 @@ import {ChatComponent} from './chat/chat.component';
 import {AuthGuard} from './services/auth.guard';
 import {MainPageComponent} from './pages/main-page/main-page.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
-
+import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
 
 const routes: Routes = [
   {
@@ -42,8 +42,8 @@ const routes: Routes = [
   {path: 'add', component: AddComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
+  {path: 'upload', component: FileUploadComponent},
   { path: '**', component: MainPageComponent },
-  // {path: 'chat/:id', component: ChatComponent},
 ];
 
 @NgModule({

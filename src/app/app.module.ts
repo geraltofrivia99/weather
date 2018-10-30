@@ -47,6 +47,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { DropZoneDirective } from './uploads/drop-zone.directive';
 import {FileSizePipe} from './uploads/file-size.pipe';
+import {SortableDirective} from './uploads/sortable.directive';
 
 import {MaterialModule} from './material/material.module';
 
@@ -84,8 +85,8 @@ export const config = {
     ImageFileComponent,
     FileModalComponent,
     AudioComponent,
-    NavbarComponent
-    
+    NavbarComponent,
+    SortableDirective
     
   ],
   imports: [
