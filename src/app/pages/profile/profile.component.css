@@ -7,21 +7,32 @@
   padding: 10% 7% 7% 10%;
 }
 .user_data {
-  border: 1px solid #000;
   padding: 3rem;
   position: relative;
   width: 100%;
   height: 100%;
-
+  background: #00C9FF;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-box-shadow: 5px 4px 8px -1px #e0e0e0;
+  -moz-box-shadow: 5px 4px 8px -1px #e0e0e0;
+  box-shadow: 5px 4px 8px -1px #e0e0e0;
+  color: #fff;
+  border-radius: 5px;
 }
 .user_avatar {
-  border: 1px solid #000;
   width: 320px;
   height: 500px;
   position: absolute;
   top: -9%;
   left: -5%;
   background-color: #fff;
+  background-image: url(/assets/img/girl_avatar.jpg);
+  background-size: cover;
+  -webkit-box-shadow: 5px 4px 8px -1px rgba(33, 33, 33, .3);
+  -moz-box-shadow: 5px 4px 8px -1px rgba(33, 33, 33, .3);
+  box-shadow: 5px 4px 8px -1px rgba(33, 33, 33, .3);
+  border-radius: 5px;
 }
 .user_data h1 {
   position: absolute;
@@ -29,17 +40,73 @@
   left: 14rem;
   z-index: 100;
   font-size: 3.6em;
+  
 }
 .user_data h1 > span {
   padding-left: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 .add_button {
   position: absolute;
   top: 2rem;
   right: 3rem;
   background: transparent;
-  border: 2px solid blue;
+  border: 2px solid #fff;
   padding: .5rem 1rem;
   color: #000;
   border-radius: 5px;
+  color: #fff;
+  outline: none !important;
+}
+.settings_button {
+  outline: none !important;
+  background-color: transparent;
+  border: none;
+}
+.settings_button mat-icon {
+  padding-bottom: 10px;
+  font-size: 1.5em;
+  color: #212121;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: rgba(46, 125, 50, .7);
+}
+.user_info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10%, 0%);
+  display: flex;
+  font-size: 1.2em;
+}
+.user_info div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: .5em 1em 0 1em;
+}
+.user_info p {
+  margin: 0;
+  color: rgba(46, 125, 50, .7);
+  font-family: 'Indie Flower', cursive;
+}
+.user_info div:nth-child(1) {
+  border-right: 1.5px solid rgba(189, 189, 189, .2);
+}
+.user_info div:nth-child(2) {
+  border-right: 1.5px solid rgba(189, 189, 189, .2);
+}
+.rect {
+  position: absolute;
+  background-color: #1a237e;
+  opacity: 0.4;
+  width: 500px;
+  height: 300px;
+  top: 0;
+  left: 0;
+  transform: rotate(100deg);
+  
 }

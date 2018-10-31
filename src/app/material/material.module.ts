@@ -12,6 +12,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTooltipModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatRippleModule
   ],
   declarations: [],
   exports: [
@@ -43,6 +45,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTooltipModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatRippleModule
   ]
 })
 export class MaterialModule { }

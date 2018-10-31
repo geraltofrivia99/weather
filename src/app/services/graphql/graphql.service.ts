@@ -14,6 +14,20 @@ const getUser = gql`
     }
   }
 `;
+const GET_PROFILE = gql`
+  query geMe {
+    me {
+      id
+      username
+      email
+      role
+      files {
+        id
+        size
+      }
+    }
+  }
+`;
 
 @Injectable()
 export class GraphqlService {
@@ -26,6 +40,11 @@ export class GraphqlService {
       variables: {
         id
       }
+    });
+  }
+  getMe(): QueryRef<any> {
+    return this.apollo.watchQuery({
+      query: GET_PROFILE
     });
   }
 }

@@ -1,15 +1,37 @@
 <div class="profile_wrapper">
   <div class="user_data">
-    <h1 >USER<br> <span>NAME</span></h1>
-    <button class="add_button">Follow</button>
+    <h1 >
+      Joane<br>
+      <span>
+        {{username | titlecase}}
+        <button mat-icon-button color="light" class="settings_button">
+          <mat-icon aria-label="Example icon-button with a heart icon">settings</mat-icon>
+        </button>
+      </span>
+    </h1>
+    <button class="add_button"
+      matRipple
+      [matRippleCentered]="centered"
+      [matRippleDisabled]="false"
+      [matRippleUnbounded]="unbounded"
+    >Follow</button>
     <div class="user_avatar">
       
     </div>
     <div class="user_info">
-
+      <div class="all_file_size">
+        <span>{{allFileSize | fileSize}}</span>
+        <p>Files size</p>
+      </div>
+      <div class="number_of_file">
+        <span>{{numberOfFules}}</span>
+        <p>Number of files</p>
+      </div>
+      <div class="role">
+        <span>Admin</span>
+        <p>Role</p>
+      </div>
     </div>
-    <button mat-icon-button color="primary">
-      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-    </button>
+    
   </div>
 </div>
