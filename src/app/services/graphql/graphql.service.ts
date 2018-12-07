@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-const getUser = gql`
+const GET_USER = gql`
   query getUser($id: ID!) {
     user(id: $id) {
       id
@@ -28,6 +28,26 @@ const GET_PROFILE = gql`
     }
   }
 `;
+export const SUBSCRIPTION_MESSAGE = gql`
+subscription newDirectMessage($userId: Int!) {
+  newDirectMessage(userId: $userId) {
+    id
+    receiverId
+    createdAt
+    text
+    sender {
+      id
+      username
+    }
+    url
+    filetype
+    fileUT {
+      url
+      type
+    }
+  }
+}
+`;
 
 @Injectable()
 export class GraphqlService {
@@ -36,7 +56,7 @@ export class GraphqlService {
 
   getUsers(id): QueryRef<any> {
     return this.apollo.watchQuery({
-      query: getUser,
+      query: GET_USER,
       variables: {
         id
       }

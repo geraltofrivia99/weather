@@ -34,9 +34,9 @@ export class DialogContentExample implements OnInit{
     const dialogRef = this.dialog.open(DialogContentExampleDialog);
 
     dialogRef.afterClosed().subscribe(id => {
-      this.zone.run(() => {
+       if (id) {
         this.router.navigate([`/home/chat/${id}`], { relativeTo: this.route });
-      })
+       } else return;
     });
   }
 }

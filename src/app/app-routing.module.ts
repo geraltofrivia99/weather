@@ -1,16 +1,17 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import {HomeComponent} from './pages/home/home.component';
 import {DetailsComponent} from './pages/details/details.component';
 import {AddComponent} from './pages/add/add.component';
 import {LoginComponent} from './pages/login/login.component';
 import {SignupComponent} from './pages/signup/signup.component';
-import {ChatComponent} from './chat/chat.component';
+// import {ChatComponent} from './chat/chat.component';
 import {AuthGuard} from './services/auth.guard';
 import {MainPageComponent} from './pages/main-page/main-page.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
 import {ProfileComponent} from './pages/profile/profile.component';
+
 
 const routes: Routes = [
   {
@@ -41,7 +42,11 @@ const routes: Routes = [
         component: FileListComponent,
         data: { animation: 'heroes' }
       },
-      {path: 'chat/:id', component: ChatComponent, data: { animation: 'hero' }},
+      {
+        path: 'chat/:id',
+        data: { animation: 'hero' },
+        loadChildren: './chat/chat.module#ChatModule',
+      },
     ]
   },
   {path: 'details/:city', component: DetailsComponent},
@@ -53,7 +58,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

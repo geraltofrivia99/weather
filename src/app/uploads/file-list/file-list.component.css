@@ -3,6 +3,9 @@
   min-width: 100vw;
   overflow: hidden;
 }
+.file_list_wrapper_dark {
+  background-color: #374046;
+}
 .file_list_container {
 
 }

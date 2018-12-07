@@ -110,3 +110,29 @@
   transform: rotate(100deg);
   
 }
+.logout {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: transparent;
+  border-radius: 100%;
+  padding: 1rem;
+  border: none;
+  font-size: 1.8em;
+  transform: rotate(180deg);
+  opacity: 0.7;
+  transition: opacity .5s;
+  /* border: 3px solid "#fff"; */
+  /* box-shadow: 0 0 10px rgba(33, 156, 243, .5),
+              0 0 20px rgba(33, 156, 243, .5),
+              0 0 30px rgba(33, 156, 243, .5),
+              inset 0 0 10px rgba(33, 156, 243, 1); */
+}
+.logout i {
+  color: #00c9ff;
+}
+.logout:hover {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(33, 156, 243, 1),
+                0 0 20px rgba(33, 156, 243, 1),
+}

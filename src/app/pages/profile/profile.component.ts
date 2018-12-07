@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { GraphqlService } from '../../services/graphql/graphql.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit {
   allFileSize: number = 0;
   numberOfFules: number;
 
-  constructor(private gql: GraphqlService, private cdr: ChangeDetectorRef) { }
+  constructor(private gql: GraphqlService, private cdr: ChangeDetectorRef, private as: AuthService) { }
 
   ngOnInit() {
     this.gql.getMe().valueChanges.
@@ -25,5 +26,7 @@ export class ProfileComponent implements OnInit {
           this.cdr.markForCheck();
         });
   }
-
+  logoutUser() {
+    this.as.logoutUser();
+  }
 }

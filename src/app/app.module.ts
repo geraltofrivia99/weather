@@ -23,15 +23,15 @@ import {LoginComponent} from './pages/login/login.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {UiService} from './services/ui/ui.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ChatComponent} from './chat/chat.component';
+// import {ChatComponent} from './chat/chat.component';
 import {FileUploadComponent} from './uploads/file-upload/file-upload.component';
 import {FileListComponent} from './uploads/file-list/file-list.component';
 import {MainPageComponent} from './pages/main-page/main-page.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {DialogContentExample, DialogContentExampleDialog} from './navbar/modals/modal.add_directuser';
 import {RenderTextComponent} from './uploads/file-list/render-text/render-text.component';
-import {ImageFileComponent} from './chat/image-file/image-file.component';
-import {FileModalComponent} from './chat/file-modal/file-modal.component';
+// import {ImageFileComponent} from './chat/image-file/image-file.component';
+// import {FileModalComponent} from './chat/file-modal/file-modal.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FileService} from './services/files/file.service';
@@ -74,7 +74,7 @@ export const config = {
     LoginComponent,
     SignupComponent,
     AddCardComponent,
-    ChatComponent,
+    // ChatComponent,
     DropZoneDirective,
     FileUploadComponent,
     FileSizePipe,
@@ -83,8 +83,8 @@ export const config = {
     DialogContentExample,
     DialogContentExampleDialog,
     RenderTextComponent,
-    ImageFileComponent,
-    FileModalComponent,
+    // ImageFileComponent,
+    // FileModalComponent,
     AudioComponent,
     NavbarComponent,
     ProfileComponent

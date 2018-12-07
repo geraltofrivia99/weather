@@ -138,7 +138,7 @@ export class FileListComponent implements OnInit {
   transferDataSuccess($event: any) {
     console.log($event);
     this.removeFile($event.dragData.id);
-}
+  }
 }
  // update: (store, { data: { createFile } }) => {
               

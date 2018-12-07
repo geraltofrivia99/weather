@@ -85,6 +85,11 @@ export class AuthService {
       },
     })
   }
+  logoutUser() {
+    window.localStorage.removeItem('x-token');
+    window.localStorage.removeItem('x-refresh-token');
+    this.router.navigate(['/']);
+  }
   // isAuth() {
   //   const id = localStorage.getItem('userId');
   //   return this.apollo.watchQuery<any>({

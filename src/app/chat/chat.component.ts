@@ -75,7 +75,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   isHovering: boolean;
   message = new FormControl({value:'', disabled: false});
   choosenFileSubscriber;
-  dataSubscription$;
   choosenFile: object;
   @ViewChild('scrollContainer') private myScrollContainer: ElementRef;
 
@@ -95,18 +94,18 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
       })
     }),
-    ).subscribe()
+    ).subscribe();
     this.data = this.dataQuery.valueChanges.pipe(map(({data}) => data.directMessages));
   }
   
   ngOnInit() {
-    console.log('Init chat')
-    
+    console.log('Init chat');
   }
+
   toggleHover(event: boolean) {
-    
     this.isHovering = event;
   }
+
   async startUpload(event) {
     this.fileMessage = await event.item(0);
       this.apollo.mutate<any>({
@@ -122,41 +121,41 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.scrollToBottom();        
 } 
   initialiseInvites() {
-      this.userId = localStorage.getItem('userId');
-      this.scrollToBottom();
-      this.reciverId = this.route.snapshot.params.id;
-      this.dataQuery = this.apollo.watchQuery({
+    this.userId = localStorage.getItem('userId');
+    this.scrollToBottom();
+    this.reciverId = this.route.snapshot.params.id;
+    this.dataQuery = this.apollo.watchQuery({
       query: getDirectMessages,
       variables: {
         otherUserId: +this.reciverId
       }
     })
-  this.data = this.dataQuery.valueChanges.pipe(map(({data}) => data.directMessages));
-  this.dataSubscription$ = this.data.subscribe(() => this.cdr.markForCheck());
-  this.subscribeToNewMessages();
-  this.choosenFileSubscriber = this.fs.getFile().subscribe((file: any) => this.choosenFile = {url: file.url, type: file.type});
-}
-subscribeToNewMessages() {
-  this.dataQuery.subscribeToMore({
-    document,
-    variables: {
-      userId: +this.reciverId,
-    },
-    updateQuery: (prev, {subscriptionData}) => {
-      if (!subscriptionData) {
-        return prev;
-      }
-      console.log(prev)
-      console.log(subscriptionData)
-      return {
-        ...prev,
-        directMessages: [
-          subscriptionData.data.newDirectMessage, ...prev.directMessages, 
-        ]
-      }
-    }  
-  })
-}
+    this.data = this.dataQuery.valueChanges.pipe(map(({data}) => data.directMessages));
+    this.subscribeToNewMessages();
+    this.choosenFileSubscriber = this.fs.getFile().subscribe((file: any) => this.choosenFile = {url: file.url, type: file.type});
+  }
+  subscribeToNewMessages() {
+    this.dataQuery.subscribeToMore({
+      document,
+      variables: {
+        userId: +this.reciverId,
+      },
+      updateQuery: (prev, {subscriptionData}) => {
+        if (!subscriptionData) {
+          return prev;
+        }
+        console.log(prev)
+        console.log(subscriptionData)
+        console.log('message')
+        return {
+          ...prev,
+          directMessages: [
+            subscriptionData.data.newDirectMessage, ...prev.directMessages, 
+          ]
+        }
+      }  
+    })
+  }
  
   onClickk(e) {
     e.preventDefault();
@@ -182,11 +181,10 @@ subscribeToNewMessages() {
     } catch(err) { }                 
 }
 
-ngOnDestroy() {
-  if (this.navigationSubscription) {  
-    this.navigationSubscription.unsubscribe();
- }
-  this.choosenFileSubscriber.unsubscribe();
-  this.dataSubscription$.unsubscribe();
-}
+  ngOnDestroy() {
+    if (this.navigationSubscription) {  
+      this.navigationSubscription.unsubscribe();
+    }
+    this.choosenFileSubscriber.unsubscribe();
+  }
 }

@@ -193,6 +193,7 @@ app-file-modal {
 .file_modal img {
   width: 50px;
 }
+
 @keyframes message {
   0%   {opacity: 0;}
   100% {opacity: 1}
